@@ -1,0 +1,62 @@
+<div class="container">
+    <!-- Creation de compte  -->
+    <div class="container-crationCompte mt-5">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Creer un compte
+        </button>
+    </div>
+  
+  
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="nameInput" class="form-label">Nom: </label>
+                    <input type="text" name="name" class="form-control" id="nameInput" [(ngModel)] = "nom">
+                </div>
+                <div class="mb-3">
+                    <label for="prenomInput" class="form-label">Prenom: </label>
+                    <input type="text" name="prenom" class="form-control" id="prenomInput" [(ngModel)]= "prenom">
+                </div>
+                <div class="mb-3">
+                    <label for="emailInput" class="form-label">Adresse email:</label>
+                    <input type="email" name="email" class="form-control" id="emailInput" [(ngModel)] ="email">
+                </div>
+                <!-- <div class="mb-3">
+                    <label for="passwordInput" class="form-label">Mot de passe:</label>
+                    <input type="password" name="password" class="form-control" id="passwordInput" [(ngModel)] ="password">
+                </div> -->
+                <div class="mb-3">
+                    <label for="telephoneInput" class="form-label">Numero de téléphone: </label>
+                    <input type="tel" name="telephone" class="form-control" id="telephoneInput" [(ngModel)] ="telephone">
+                </div>
+                <div class="mb-3">
+                    <label for="adresseInput" class="form-label">Adresse: </label>
+                    <input type="tel" name="adresse" class="form-control" id="adresseInput" [(ngModel)] ="adresse">
+                </div>
+                <div class="mb-3">
+                    <label for="role">Role</label>
+                    <select class="form-select" aria-label="Default select example" id="role" [(ngModel)] = "role">
+                        <!-- <option selected>Choisir un </option> -->
+                        <option value="prof">Professeur</option>
+                        <option value="apprenant">Apprenant</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)=" creerCompte()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
