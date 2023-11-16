@@ -27,42 +27,42 @@ export class AuthComponent implements OnInit {
   ]
 
   professeurs: Professeur[] = [
-    {
-      idProf:1,
-      etatProf: 1,
-      nom: "Diouf",
-      prenom: "GG",
-      email: "gg@gmail.com",
-      password: "passer123&",
-      telephone: "777777",
-      role: "prof",
-      adresse: "Ndiakhirate",
-      matieres: [],
-      createAt: "",
-      createBy: "",
-      updateAt: "",
-      updateBy: "",
-    }
+    // {
+    //   idProf:1,
+    //   etatProf: 1,
+    //   nom: "Diouf",
+    //   prenom: "GG",
+    //   email: "gg@gmail.com",
+    //   password: "passer123&",
+    //   telephone: "777777",
+    //   role: "prof",
+    //   adresse: "Ndiakhirate",
+    //   matieres: [],
+    //   createAt: "",
+    //   createBy: "",
+    //   updateAt: "",
+    //   updateBy: "",
+    // }
   ];
 
   apprenants: Apprenant[] = [
-    {
-      idApprenant: 1,
-      etatApprenant: 1,
-      nom: "Faye",
-      prenom: "Marie",
-      adresse: "Diamalaye",
-      email: "marie@gmail.com",
-      password: "passer123&",
-      telephone: "77888888",
-      role: "Apprenant",
-      notes: [],
-      niveau: "Licence 2",
-      createAt: "",
-      createBy: "",
-      updateAt: "",
-      updateBy: "",
-    }
+    // {
+    //   idApprenant: 1,
+    //   etatApprenant: 1,
+    //   nom: "Faye",
+    //   prenom: "Marie",
+    //   adresse: "Diamalaye",
+    //   email: "marie@gmail.com",
+    //   password: "passer123&",
+    //   telephone: "77888888",
+    //   role: "Apprenant",
+    //   notes: [],
+    //   niveau: "Licence 2",
+    //   createAt: "",
+    //   createBy: "",
+    //   updateAt: "",
+    //   updateBy: "",
+    // }
   ];
 
   // Le tableau temporaire qui stocke les utilisateurs du localStorage 
@@ -196,12 +196,14 @@ export class AuthComponent implements OnInit {
       }
 
       else if(this.userProfFound){
-        alert("prof")
         this.route.navigate(['prof', this.userProfFound.idProf]);
-        // this.verifierChamps("Oups!", "Le compte n'exite pas", "error");  
+        this.viderChampsCon(); 
+        this.verifierChamps("Félicitation!", "Authentifié avec succes", "success");  
       }
 
       else if(this.userApprenantFound){
+        this.viderChampsCon(); 
+        this.verifierChamps("Félicitation!", "Authentifié avec succes", "success");
         this.route.navigate(['apprenant', this.userApprenantFound.idProf]);
       }
 
