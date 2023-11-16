@@ -1,0 +1,31 @@
+/* couleur de base : 
+#BE3144
+#F05941 */
+.menu{
+    height: 97vh;
+    width: auto;
+    box-sizing: border-box;
+}
+
+.logo{
+    width: 30vh;
+    height: 30vh;
+    border-radius: 100%;
+}
+
+.active-page{
+    background-color: #BE3144;
+}
+
+.nav-item a{
+    color: white;
+    font-weight: bold;
+}
+
+.nav-item a:hover{
+    background-color: #BE3144;
+}
+
+.déconnexion{
+    color: #BE3144;
+}
