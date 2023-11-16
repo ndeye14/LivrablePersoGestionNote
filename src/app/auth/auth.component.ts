@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
+import { Apprenant, Professeur } from '../models/models';
 
 @Component({
   selector: 'app-auth',
@@ -25,11 +26,60 @@ export class AuthComponent implements OnInit {
     },
   ]
 
+  professeurs: Professeur[] = [
+    {
+      idProf:1,
+      etatProf: 1,
+      nom: "Diouf",
+      prenom: "GG",
+      email: "gg@gmail.com",
+      password: "passer123&",
+      telephone: "777777",
+      role: "prof",
+      adresse: "Ndiakhirate",
+      matieres: [],
+      createAt: "",
+      createBy: "",
+      updateAt: "",
+      updateBy: "",
+    }
+  ];
+
+  apprenants: Apprenant[] = [
+    {
+      idApprenant: 1,
+      etatApprenant: 1,
+      nom: "Faye",
+      prenom: "Marie",
+      adresse: "Diamalaye",
+      email: "marie@gmail.com",
+      password: "passer123&",
+      telephone: "77888888",
+      role: "Apprenant",
+      notes: [],
+      niveau: "Licence 2",
+      createAt: "",
+      createBy: "",
+      updateAt: "",
+      updateBy: "",
+    }
+  ];
+
   // Le tableau temporaire qui stocke les utilisateurs du localStorage 
   tabUsersTmp: any;
 
-  // L'utilisateur trouvée dans le localStorage 
+  tabProfs: any;
+
+  tabApprenants: any;
+
+  // L'utilisateur admin trouvée dans le localStorage 
   userFound: any;
+
+  // L'utilisateur prof trouvée dans le localStorage 
+  userProfFound: any;
+
+  // L'utilisateur apprenant trouvée dans le localStorage 
+  userApprenantFound: any;
 
   // Variable pour la connexion 
   emailCon : String = "";
@@ -49,15 +99,30 @@ export class AuthComponent implements OnInit {
   // Déclaration des méthodes 
   // Methode ngOnInit
   ngOnInit(): void {
+    // Pour les administrateurs
     // Insertion du tableau d'utilisateur dans le localstorage 
     // console.log(this.users);
     if(!localStorage.getItem("utilisateurs")){
       localStorage.setItem("utilisateurs", JSON.stringify(this.users));
     }
-
-    // Renvoie un tableau de valuers ou un tableau vide 
+    // Renvoie un tableau de pour les administrateurs 
     this.tabUsersTmp = JSON.parse(localStorage.getItem("utilisateurs") || "[]");  
-    // console.log(this.idLastUser); 
+     
+    
+    // Pour les professeurs 
+    if(!localStorage.getItem("professeurs")){
+      localStorage.setItem("professeurs", JSON.stringify(this.professeurs));
+    }
+    // Renvoie un tableau de professeurs 
+    this.tabProfs = JSON.parse(localStorage.getItem("professeurs") || "[]");  
+    
+    // Pour les apprenants 
+    if(!localStorage.getItem("apprenants")){
+      localStorage.setItem("apprenants", JSON.stringify(this.apprenants));
+    }
+    // Renvoie un tableau de apprenants 
+    this.tabApprenants = JSON.parse(localStorage.getItem("apprenants") || "[]");  
+     
   }
 
 
@@ -119,35 +184,29 @@ export class AuthComponent implements OnInit {
   connexion(){
     if (this.exactEmailCon && this.exactPasswordCon){
       this.userFound = this.tabUsersTmp.find((element:any) => element.email == this.emailCon && element.password == this.passwordCon);
+      this.userProfFound = this.tabProfs.find((element:any) => element.email == this.emailCon && element.password == this.passwordCon);
+      this.userApprenantFound = this.tabApprenants.find((element:any) => element.email == this.emailCon && element.password == this.passwordCon);
 
       if(this.userFound){
-        if(this.userFound.etat==1){
-          // Le compte existe 
-          this.viderChampsCon(); 
-          this.verifierChamps("Félicitation!", "Authentifié avec succes", "success"); 
-  
-          // On vérifie le role de l'utilisateur trouvé
-          if (this.userFound.role == "admin"){
-            this.route.navigate(['admin']);
-          }
-          
-          else if (this.userFound.role == "prof"){ 
-            this.route.navigate(['prof']);
-          }
-          
-          else if (this.userFound.role == "apprenant"){ 
-            this.route.navigate(['apprenant']);
-          }
-        }
-
-        else{
-          this.verifierChamps("Compte désactivé!", "Veuillez contacter l'administrateur", "error"); 
-        }
+        this.route.navigate(['admin']);
+        localStorage.setItem("adminConnect", JSON.stringify(this.userFound));
+        this.viderChampsCon(); 
+        this.verifierChamps("Félicitation!", "Authentifié avec succes", "success"); 
         
       }
 
+      else if(this.userProfFound){
+        alert("prof")
+        this.route.navigate(['prof', this.userProfFound.idProf]);
+        // this.verifierChamps("Oups!", "Le compte n'exite pas", "error");  
+      }
+
+      else if(this.userApprenantFound){
+        this.route.navigate(['apprenant', this.userApprenantFound.idProf]);
+      }
+
       else{
-        this.verifierChamps("Oups!", "Le compte n'exite pas", "error");  
+        alert("N'existe pas")
       }
     }
   }

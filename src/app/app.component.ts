@@ -11,47 +11,47 @@ import { Professeur } from './models/models';
 export class AppComponent {
   title = 'GestionNote_G5';
 
-  professeur : Professeur [] = [
-    {
-      idProf: 0,
-      etatProf: 0,
-      nom: "",
-      prenom : "",
-      email : "",
-      password: "",
-      telephone : "",
-      adresse : "",
-      role : "",
-      matieres : [{
-        idMatiere: 0,
-        nomMatiere: "",
-        evaluation: [{
-          idEvaluation : 0,
-          semestre: "",
-          date : "",
-          type : "",
-          anneeScolaire : "",
-          etat : "",
-          classe : {
-            idClasse: 0,
-            nomClasse : "",
-            apprenants : [
-              {
-                idApprenant :0,
-                nom: "",
-                prenom: "",
-                email: "",
-                password: "",
-                telephone: "",
-                adresse: "",
-                role:"",
-                etatApprenant: 0,
-                notes: []
-              }
-            ]
-          }
-        }],
-      }]
-    }
-  ]
+  // professeur : Professeur [] = [
+  //   {
+  //     idProf: 0,
+  //     etatProf: 0,
+  //     nom: "",
+  //     prenom : "",
+  //     email : "",
+  //     password: "",
+  //     telephone : "",
+  //     adresse : "",
+  //     role : "",
+  //     matieres : [{
+  //       idMatiere: 0,
+  //       nomMatiere: "",
+  //       evaluation: [{
+  //         idEvaluation : 0,
+  //         semestre: "",
+  //         date : "",
+  //         type : "",
+  //         anneeScolaire : "",
+  //         etat : "",
+  //         classe : {
+  //           idClasse: 0,
+  //           nomClasse : "",
+  //           apprenants : [
+  //             {
+  //               idApprenant :0,
+  //               nom: "",
+  //               prenom: "",
+  //               email: "",
+  //               password: "",
+  //               telephone: "",
+  //               adresse: "",
+  //               role:"",
+  //               etatApprenant: 0,
+  //               notes: []
+  //             }
+  //           ]
+  //         }
+  //       }],
+  //     }]
+  //   }
+  // ]
 }

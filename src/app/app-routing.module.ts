@@ -24,10 +24,10 @@ const routes: Routes = [
   {path: 'admin-gestionApprenant', component: GestionApprenantComponent},
 
   // Route pour interface professeur
-  {path: 'prof', component:AccueilProfComponent},
+  {path: 'prof/:id', component:AccueilProfComponent},
 
   // Route pour interface apprenant 
-  {path: 'apprenant', component: ListeNotesComponent}
+  {path: 'apprenant/:id', component: ListeNotesComponent}
 ];
 
 @NgModule({
