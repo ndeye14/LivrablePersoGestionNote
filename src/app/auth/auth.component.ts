@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
-import { Apprenant, Professeur } from '../models/models';
+import { Apprenant, Professeur, Classe, Matiere } from '../models/models';
 
 @Component({
   selector: 'app-auth',
@@ -26,51 +26,304 @@ export class AuthComponent implements OnInit {
     },
   ]
 
+  matieres: Matiere[] =  [
+    {
+      idMatiere: 1,
+      nomMatiere: "SVT",
+      description: "Science de la vie et de la terre",
+      evaluation: [
+        {
+          idEvaluation: 1,
+          semestre: "Semestre 1",
+          date: new Date(),
+          type: "Devoir",
+          etat: "En cours",
+          anneeScolaire: "2023/2024",
+          // classe: "1"
+        },
+        {
+          idEvaluation: 2,
+          semestre: "Semestre 1",
+          date: new Date(),
+          type: "Examen",
+          etat: "faite",
+          anneeScolaire: "2023/2024",
+          // classe: "1"
+        },
+        {
+          idEvaluation: 3,
+          semestre: "Semestre 1",
+          date: new Date(),
+          type: "Devoir",
+          etat: "reportee",
+          anneeScolaire: "2023/2024",
+          // classe: "1"
+        },
+      ],
+      createAt: "2023-11-18T01:08:59.632Z",
+      createBy: "djibyseck@gmail.com",
+      updateAt: "",
+      updateBy: ""
+    },
+  ]
+
   professeurs: Professeur[] = [
-    // {
-    //   idProf:1,
-    //   etatProf: 1,
-    //   nom: "Diouf",
-    //   prenom: "GG",
-    //   email: "gg@gmail.com",
-    //   password: "passer123&",
-    //   telephone: "777777",
-    //   role: "prof",
-    //   adresse: "Ndiakhirate",
-    //   matieres: [],
-    //   createAt: "",
-    //   createBy: "",
-    //   updateAt: "",
-    //   updateBy: "",
-    // }
+    {
+      idProf: 1,
+      etatProf: 1,
+      nom: "Diouf",
+      prenom: "Germaine",
+      email: "ggbelle@gmail.com",
+      password: "passer123&",
+      telephone: "77788877",
+      adresse: "Kahone",
+      role: "prof",
+      image: "https://img.freepik.com/free-photo/talking-audience_1098-14094.jpg?size=626&ext=jpg&ga=GA1.1.59389668.1692912989&semt=sph",
+      matieres: [
+        {
+          idMatiere: 1,
+          nomMatiere: "SVT",
+          description: "Science de la vie et de la terre",
+          evaluation: [
+            {
+              idEvaluation: 1,
+              semestre: "Semestre 1",
+              date: new Date(),
+              type: "Devoir",
+              etat: "En cours",
+              anneeScolaire: "2023/2024",
+            },
+            {
+              idEvaluation: 2,
+              semestre: "Semestre 1",
+              date: new Date(),
+              type: "Examen",
+              etat: "faite",
+              anneeScolaire: "2023/2024",
+            },
+            {
+              idEvaluation: 3,
+              semestre: "Semestre 1",
+              date: new Date(),
+              type: "Devoir",
+              etat: "reportee",
+              anneeScolaire: "2023/2024",
+            },
+          ],
+          createAt: "2023-11-18T01:08:59.632Z",
+          createBy: "djibyseck@gmail.com",
+          updateAt: "",
+          updateBy: ""
+        },
+      ],
+      idClasse: 3,
+      createAt: "2023-11-18T09:06:07.356Z",
+      createBy: "djibyseck@gmail.com",
+      updateAt: "",
+      updateBy: ""
+    }, 
+    {
+      idProf: 2,
+      etatProf: 1,
+      nom: "Sow",
+      prenom: "Ndeye Awa",
+      email: "ndeya@gmail.com",
+      password: "passer123&",
+      telephone: "77788877",
+      adresse: "Dakar",
+      role: "prof",
+      image: "https://img.freepik.com/free-photo/talking-audience_1098-14094.jpg?size=626&ext=jpg&ga=GA1.1.59389668.1692912989&semt=sph",
+      matieres: [
+        {
+          idMatiere: 1,
+          nomMatiere: "SVT",
+          description: "Science de la vie et de la terre",
+          evaluation: [],
+          createAt: "2023-11-18T01:08:59.632Z",
+          createBy: "djibyseck@gmail.com",
+          updateAt: "",
+          updateBy: ""
+        },
+      ],
+      idClasse: 2,
+      createAt: "2023-11-18T09:06:07.356Z",
+      createBy: "djibyseck@gmail.com",
+      updateAt: "",
+      updateBy: ""
+    }
   ];
 
   apprenants: Apprenant[] = [
-    // {
-    //   idApprenant: 1,
-    //   etatApprenant: 1,
-    //   nom: "Faye",
-    //   prenom: "Marie",
-    //   adresse: "Diamalaye",
-    //   email: "marie@gmail.com",
-    //   password: "passer123&",
-    //   telephone: "77888888",
-    //   role: "Apprenant",
-    //   notes: [],
-    //   niveau: "Licence 2",
-    //   createAt: "",
-    //   createBy: "",
-    //   updateAt: "",
-    //   updateBy: "",
-    // }
+    {
+      idApprenant: 1,
+      etatApprenant: 1,
+      nom: "Faye",
+      prenom: "Helene",
+      email: "helene@gmail.com",
+      password: "passer123&",
+      telephone: "77788877",
+      adresse: "Ouakam",
+      role: "apprenant",
+      notes: [
+        {note: 12, idEvaluation: 2, idMatiere: 1, idProf: 1}
+      ],
+      niveau: "3",
+      image: "https://img.freepik.com/free-photo/portrait-young-woman-with-laptop-hands-outside-school_641386-1029.jpg?size=626&ext=jpg&ga=GA1.1.59389668.1692912989&semt=sph",
+      createAt: "2023-11-18T11:29:05.398Z",
+      createBy: "djibyseck@gmail.com",
+      updateAt: "",
+      updateBy: ""
+    },
+    {
+      idApprenant: 2,
+      etatApprenant: 1,
+      nom: "Fall",
+      prenom: "Marie",
+      email: "marie@gmail.com",
+      password: "passer123&",
+      telephone: "77788877",
+      adresse: "Ouakam",
+      role: "apprenant",
+      notes: [
+        {note: 18, idEvaluation: 2, idMatiere: 1, idProf: 1}
+      ],
+      niveau: "3",
+      image: "https://img.freepik.com/premium-photo/portrait-female-teacher-school-class-smiling-middle-aged-woman-wearing-glasses-with-folded-hands-looking-camera-classroom-with-teenage-students-desk-background_116407-14432.jpg?size=626&ext=jpg&ga=GA1.1.59389668.1692912989&semt=sph",
+      createAt: "2023-11-18T11:29:05.398Z",
+      createBy: "djibyseck@gmail.com",
+      updateAt: "",
+      updateBy: ""
+    },
+    {
+      idApprenant: 3,
+      etatApprenant: 1,
+      nom: "Gueye",
+      prenom: "Marie",
+      email: "mariegueye@gmail.com",
+      password: "passer123&",
+      telephone: "77788877",
+      adresse: "Ouakam",
+      role: "apprenant",
+      notes: [
+        {note: 15, idEvaluation: 2, idMatiere: 1, idProf: 1}
+      ],
+      niveau: "3",
+      image: "https://img.freepik.com/free-photo/african-american-woman-wearing-student-backpack-holding-books-smiling-happy-pointing-with-hand-finger-side_839833-34702.jpg?size=626&ext=jpg&ga=GA1.1.59389668.1692912989&semt=sph",
+      createAt: "2023-11-18T11:29:05.398Z",
+      createBy: "djibyseck@gmail.com",
+      updateAt: "",
+      updateBy: ""
+    },
   ];
+
+  classes: Classe[] = [
+    {
+      idClasse: 1,
+      nomClasse: "Licence 1",
+      effectif: 2,
+      apprenants: [],
+      prof: "",
+      createAt: "",
+      createBy: "",
+      updateAt:"",
+      updateBy: ""    
+    },
+    {
+      idClasse: 2,
+      nomClasse: "Licence 2",
+      effectif: 20,
+      apprenants: [],
+      prof: "ndeya@gmail.com",
+      createAt: "",
+      createBy: "",
+      updateAt:"",
+      updateBy: ""    
+    },
+    {
+      idClasse: 3,
+      nomClasse: "Licence 3",
+      effectif: 30,
+      apprenants: [
+        {
+          idApprenant: 1,
+          etatApprenant: 1,
+          nom: "Faye",
+          prenom: "Helene",
+          email: "helene@gmail.com",
+          password: "passer123&",
+          telephone: "77788877",
+          adresse: "Ouakam",
+          role: "apprenant",
+          notes: [
+            {idNote:1, note: 12, idEvaluation: 2, idMatiere: 1, idProf: 1}
+          ],
+          niveau: "3",
+          image: "https://img.freepik.com/free-photo/portrait-young-woman-with-laptop-hands-outside-school_641386-1029.jpg?size=626&ext=jpg&ga=GA1.1.59389668.1692912989&semt=sph",
+          createAt: "2023-11-18T11:29:05.398Z",
+          createBy: "djibyseck@gmail.com",
+          updateAt: "",
+          updateBy: ""
+        },
+        {
+          idApprenant: 2,
+          etatApprenant: 1,
+          nom: "Fall",
+          prenom: "Marie",
+          email: "marie@gmail.com",
+          password: "passer123&",
+          telephone: "77788877",
+          adresse: "Ouakam",
+          role: "apprenant",
+          notes: [
+            {idNote:1, note: 18, idEvaluation: 2, idMatiere: 1, idProf: 1}
+          ],
+          niveau: "3",
+          image: "https://img.freepik.com/premium-photo/portrait-female-teacher-school-class-smiling-middle-aged-woman-wearing-glasses-with-folded-hands-looking-camera-classroom-with-teenage-students-desk-background_116407-14432.jpg?size=626&ext=jpg&ga=GA1.1.59389668.1692912989&semt=sph",
+          createAt: "2023-11-18T11:29:05.398Z",
+          createBy: "djibyseck@gmail.com",
+          updateAt: "",
+          updateBy: ""
+        },
+        {
+          idApprenant: 3,
+          etatApprenant: 1,
+          nom: "Gueye",
+          prenom: "Marie",
+          email: "mariegueye@gmail.com",
+          password: "passer123&",
+          telephone: "77788877",
+          adresse: "Ouakam",
+          role: "apprenant",
+          notes: [
+            {idNote:1, note: 15, idEvaluation: 2, idMatiere: 1, idProf: 1}
+          ],
+          niveau: "3",
+          image: "https://img.freepik.com/free-photo/african-american-woman-wearing-student-backpack-holding-books-smiling-happy-pointing-with-hand-finger-side_839833-34702.jpg?size=626&ext=jpg&ga=GA1.1.59389668.1692912989&semt=sph",
+          createAt: "2023-11-18T11:29:05.398Z",
+          createBy: "djibyseck@gmail.com",
+          updateAt: "",
+          updateBy: ""
+        },
+      ],
+      prof: "ggbelle@gmail.com",
+      createAt: "",
+      createBy: "",
+      updateAt: "",
+      updateBy: ""
+    },
+  ];
+
 
   // Le tableau temporaire qui stocke les utilisateurs du localStorage 
   tabUsersTmp: any;
 
   tabProfs: any;
 
+  tabClasses: any;
+
   tabApprenants: any;
+
+  tabMatieres: any;
 
   // L'utilisateur admin trouvée dans le localStorage 
   userFound: any;
@@ -123,6 +376,19 @@ export class AuthComponent implements OnInit {
     // Renvoie un tableau de apprenants 
     this.tabApprenants = JSON.parse(localStorage.getItem("apprenants") || "[]");  
      
+    // On stocke le tableaux des classes dans le localStorage
+    if(!localStorage.getItem("classes")){
+      localStorage.setItem("classes", JSON.stringify(this.classes));
+    }
+    // On récupère et stocke le tableau des classes 
+    this.tabClasses = JSON.parse(localStorage.getItem("classes") || "[]");
+
+    // On stocke le tableaux des matieres dans le localStorage
+    if(!localStorage.getItem("matieres")){
+      localStorage.setItem("matieres", JSON.stringify(this.matieres))
+    }
+    // On récupère et stocke le tableau des matieres 
+    this.tabMatieres = JSON.parse(localStorage.getItem("matieres") || "[]");    
   }
 
 
@@ -196,19 +462,29 @@ export class AuthComponent implements OnInit {
       }
 
       else if(this.userProfFound){
-        this.route.navigate(['prof', this.userProfFound.idProf]);
-        this.viderChampsCon(); 
-        this.verifierChamps("Félicitation!", "Authentifié avec succes", "success");  
+        if(this.userProfFound.etatProf == 1){
+          this.route.navigate(['prof', this.userProfFound.idProf]);
+          this.viderChampsCon(); 
+          this.verifierChamps("Félicitation!", "Authentifié avec succes", "success");  
+        }
+        else{
+          this.verifierChamps("Erreur!", "Professeur innactif", "error");  
+        }
       }
-
+      
       else if(this.userApprenantFound){
-        this.viderChampsCon(); 
-        this.verifierChamps("Félicitation!", "Authentifié avec succes", "success");
-        this.route.navigate(['apprenant', this.userApprenantFound.idProf]);
+        if(this.userApprenantFound.etatApprenant == 1){
+          this.viderChampsCon(); 
+          this.verifierChamps("Félicitation!", "Authentifié avec succes", "success");
+          this.route.navigate(['apprenant', this.userApprenantFound.idApprenant]);
+        }
+        else{
+          this.verifierChamps("Erreur!", "Apprenant innactif", "error");  
+        }
       }
-
+      
       else{
-        alert("N'existe pas")
+        this.verifierChamps("Erreur!", "Le compte n'existe pas", "error");  
       }
     }
   }

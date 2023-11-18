@@ -1,31 +1,207 @@
-<div class="row">
-    <div class="col-3">
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark menu" >
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-              <img src="assets/logogestionNote.png" class="logo" alt="">
-            </a>
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
-              
-              <li class="nav-item mb-3">
-                <a href="#" class="nav-link " routerLink="/admin">Dashbord</a>
-              </li>
-              <li class="nav-item mb-3">
-                <a href="#" class="nav-link active-page"  aria-current="page">Gestion professeur</a>
-              </li>
-              <li class="nav-item mb-3">
-                <a href="#" class="nav-link" routerLink="/admin-gestionApprenant">Gestion apprenant</a>
-              </li>              
-            </ul>
+<div class="main-container px-0">
+  <!-- First menu  -->
+  <div class="grid-item">
+      <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark menu" >
+          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <img src="assets/logogestionNote.png" class="logo" alt="">
+          </a>
+          <hr>
+          <ul class="nav nav-pills flex-column mb-auto">
+            
+            <li class="nav-item mb-3">
+              <a href="#" class="nav-link" routerLink="/admin">Dashbord</a>
+            </li>
+            <li class="nav-item mb-3">
+              <a href="#" class="nav-link active-page" aria-current="page" routerLink="/admin-gestionProf">Gestion professeur</a>
+            </li>
+            <li class="nav-item mb-3">
+              <a href="#" class="nav-link" routerLink="/admin-gestionApprenant">Gestion apprenant</a>
+            </li>              
+          </ul>
 
-            <hr>
-            <a href="#" class="nav-link déconnexion fs-5 fw-bold ms-3" >Deconnexion</a>
-          </div>
-    </div>
-    <div class="col-9">
-        <p>Contenu Principal</p>
-        <div class="container">
-            <!-- Contenu principal  -->
+          <hr>
+          <a href="#" class="nav-link déconnexion fs-5 fw-bold ms-3" >Deconnexion</a>
         </div>
+  </div>
+
+  <!-- Contenu principale  -->
+  <div class="grid-item">
+    <!-- Second menu  -->
+    <div class="second-menu mb-3">
+      <div class="container mt-3">
+          <div class="row">
+              <div class="search col-md-10">
+                  <p><i class="annee-scolaire bi bi-calendar2-event-fill me-2"></i> Anneée scolaire: 2023/2024</p>
+              </div>
+              
+              <div class="profil col-md-2">
+                  <i class="bi bi-person-fill"></i>
+              </div>
+          </div>
+          <hr>
+      </div>
+    </div>  
+
+    <!-- Contenu principale -->
+    <div class="container">
+      <!-- statistic -->
+      <div class="statistic-prof">
+        <div class="row row-statistic">
+          <!-- Nombre de comptes désactivés -->
+          <div class="col-md-6 px-4">
+            <div class="card mb-3 shadow ">
+              <div class="card-body">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <i class="bi bi-person-fill-slash prof-desable compte-prof"></i>
+                  </div>
+                  <div class="col-md-8 py-4 mt-2">
+                    <h5 class="card-title">Profs Inactifs:</h5>
+                    <p class="card-text">10 Comptes</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nombre de compte actifs -->
+          <div class="col-md-6 px-4">
+            <div class="card mb-3 shadow ">
+              <div class="card-body">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <i class="bi bi-person-fill-check prof-desable compte-prof"></i>
+                  </div>
+                  <div class="col-md-8 py-4 mt-2">
+                    <h5 class="card-title">Profs Actifs:</h5>
+                    <p class="card-text">10 Comptes</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- Liste des professeurs -->
+      <div class="liste-prof mt-5">
+        <div class="container">
+          <h3 class="fw-bold mb-3">Liste des professeurs</h3>
+          <table class="table table-responsive shadow">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prenom</th>
+                <th scope="col">Adresse email</th>
+                <th scope="col">Télephone</th>
+                <th scope="col">Etat</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let prof of tabProfs">
+              <tr>
+                <th><img [src]="prof.image" alt="" class="imageUser"></th>
+                <td>{{prof.nom}}</td>
+                <td>{{prof.prenom}}</td>
+                <td>{{prof.email}}</td>
+                <td>{{prof.telephone}}</td>
+                <td>
+                  <button class="btn btn-activer me-2" *ngIf="prof.etatProf==0" (click) = "activerProf(prof)">Activer</button>
+                  <button class="btn btn-desactiver me-2" *ngIf="prof.etatProf==1" (click)="desactiverProf(prof)">Désactiver</button>
+                </td>
+                <td>
+                  <button class="btn btn-modifier me-2" data-bs-toggle="modal" data-bs-target="#modifierProf" (click)="chargerInfosProf(prof)">Modifier</button>
+                  <button class="btn btn-details me-2" data-bs-toggle="modal" data-bs-target="#detailProf" (click)="detailProf(prof)">Détails</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
     </div>
+  </div>
+</div>
+
+<!-- Modal ajoutProf -->
+<div class="modal fade" id="modifierProf" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Modifier ce professeur</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div class="mb-3">
+                  <label for="nameInput" class="form-label">Nom: </label>
+                  <input type="text" name="name" class="form-control" id="nameInput" [(ngModel)] = "nom">
+              </div>
+              <div class="mb-3">
+                  <label for="prenomInput" class="form-label">Prenom: </label>
+                  <input type="text" name="prenom" class="form-control" id="prenomInput" [(ngModel)]= "prenom">
+              </div>
+              <div class="mb-3">
+                  <label for="emailInput" class="form-label">Adresse email:</label>
+                  <input type="email" name="email" class="form-control" id="emailInput" [(ngModel)] ="email">
+              </div>
+              <div class="mb-3">
+                  <label for="telephoneInput" class="form-label">Numero de téléphone: </label>
+                  <input type="tel" name="telephone" class="form-control" id="telephoneInput" [(ngModel)] ="telephone">
+              </div>
+              <div class="mb-3">
+                  <label for="adresseInput" class="form-label">Adresse: </label>
+                  <input type="tel" name="adresse" class="form-control" id="adresseInput" [(ngModel)] ="adresse">
+              </div>
+              <div class="mb-3">
+                  <label for="imageURLInput" class="form-label">URL de l'image: </label>
+                  <input type="tel" name="imageURL" class="form-control" id="imageURLInput" [(ngModel)] ="imageUrl">
+              </div>                
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-annuler" data-bs-dismiss="modal" (click)="viderChampsCompte()">Annuler</button>
+              <button type="button" class="btn btn-ajouter" data-bs-dismiss="modal" (click)="modifierProf()">Modifier</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Modal Détail professeur  -->
+<div class="modal fade" id="detailProf" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Détail du professeur</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="card mb-3" style="max-width: 540px;">
+              <div class="card-body">
+                <div class="row text-center">
+                  <div class="px-3 detail-prof">
+                    <img [src]="imageUrl" class="img-fluid rounded-3" alt="...">
+                  </div>
+                </div>
+                <div class="row my-3">
+                  <h5 class="card-title fw-bold">{{prenom}} {{nom}}</h5>
+                  <p class="card-text"><span class="fw-bold">Email:</span> {{email}}</p>
+                  <p class="card-text"><span class="fw-bold">Téléphone:</span> {{telephone}}</p>
+                  <p class="card-text"><span class="fw-bold">Adresse:</span> {{adresse}}</p>
+                  <p class="card-text"><span class="fw-bold">Classe:</span> {{classe}}</p>
+                  <p class="card-text"><span class="fw-bold">Matiere(s):</span> <span *ngFor="let matiere of tabMatieresProf"> {{matiere.nomMatiere}} </span></p>
+                  <p class="card-text" *ngIf="etat == 1"><span class="fw-bold">Etat:</span> Actif</p>
+                  <p class="card-text" *ngIf="etat == 0"><span class="fw-bold">Etat:</span> Inactif</p>
+                  <p class="card-text" *ngIf="createAt"><span class="fw-bold">Créé le </span>{{createAt | date : 'dd/MM/yyyy'}} par <span class="fw-bold">{{createBy}} </span></p>
+                  <p class="card-text" *ngIf="updateAt"><span class="fw-bold">Dernière mis à jour: </span>{{updateAt | date : 'dd/MM/yyyy à hh:mm'}}</p>
+                  <!-- <p class="card-text" *ngIf="profFound.matieres.length">
+                    <span class="fw-bold">Total matiere(s):</span> {{profFound.matieres.length}} 
+                    <button>Voir plus</button>
+                  </p> -->
+                </div>
+              </div>
+            </div>           
+          </div>
+      </div>
+  </div>
 </div>

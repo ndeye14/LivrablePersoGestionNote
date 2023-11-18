@@ -1,5 +1,17 @@
+/* couleur de base : 
+#BE3144
+#F05941 */
+/* Début menu  */
+.main-container{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    box-sizing: border-box;
+    column-gap: 3vh;
+}
+
 .menu{
-    height: 97vh;
+    /* height: 100vh; */
+    min-height: 100%;
     width: auto;
     box-sizing: border-box;
 }
@@ -25,4 +37,75 @@
 
 .déconnexion{
     color: #BE3144;
+}
+/* Fin menu  */
+
+/* Début gestion professeur */
+.annee-scolaire{
+    color: #BE3144;
+}
+
+.row-statistic{
+    padding: 0 20vh;
+}
+
+.row-statistic .card{
+    border: none;
+    border-right: 2px solid #F05941 ;
+}
+.compte-prof{
+    font-size: 13vh;
+    color: #BE3144;
+    /* padding: 0 4vh;
+    border-right: 3px solid #BE3144; */
+}
+
+.table{
+    height: 56vh;
+    overflow-y: scroll;
+}
+
+thead tr th{
+    background-color: #F05941;
+    color: white;
+    font-weight: bold;
+    font-size: 3vh;
+}
+
+.imageUser{
+    width: 10vh;
+    height: 10vh;
+    border-radius: 100%;
+}
+
+.btn-modifier{
+    background-color: white!important;
+    box-shadow: 4px 4px 2px #BE3144 ;
+    color:  #BE3144;
+}
+.btn-details{
+    background-color: white!important;
+    box-shadow: 4px 4px 2px #F05941 ;
+    color:  #F05941;
+}
+
+.btn-activer{
+    background-color: #F05941!important;
+    box-shadow: 4px 4px 2px #BE3144;
+    color:  white;
+}
+.btn-desactiver{
+    background-color: #BE3144!important;
+    box-shadow: 4px 4px 2px #F05941;
+    color:  white;
+}
+
+.btn-annuler{
+    background-color: #F05941;
+    color: white;
+}
+
+.btn-ajouter {
+    background-color: #BE3144;
+    color: wheat;
 }
