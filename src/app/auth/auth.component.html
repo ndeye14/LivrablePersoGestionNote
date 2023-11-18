@@ -1,7 +1,7 @@
 <div class="connexion mt-5">
-    <div class="container shadow py-3">
+    <div class=" shadow py-3">
         <h1 class="text-center fw-bold mb-5">Connectez-vous</h1>
-        <form action="">
+        <form action="" class="container mb-3 px-5">
             <div class="mb-3">
                 <label for="emailInput" class="form-label">Adresse email:</label>
                 <input type="email" name="email" class="form-control" id="emailInput" [(ngModel)] = "emailCon" (input)="verifEmailConFonction()">
@@ -15,9 +15,14 @@
                 <p class="text-success" *ngIf="exactPasswordCon"><i class="bi bi-check2-all"></i> Exact !</p>
             </div>
             <div class="btn-auth text-center">
-                <button type="submit" class="btn btn-primary me-3" (click)="connexion()">Se connecter</button>
+                <button type="submit" class="btn btn-connexion me-3" (click)="connexion()">Se connecter</button>
 
             </div>
         </form>
+
+        <div class="stylisation">
+            <div class="style-droite grid-item"></div>
+            <div class="style-gauche grid-item"></div>
+        </div>
     </div>
 </div>

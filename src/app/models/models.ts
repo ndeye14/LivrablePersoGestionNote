@@ -10,7 +10,8 @@ export class Apprenant {
     adresse : string = "";
     role : String= "";
     niveau: string = "";
-    notes: []=[];
+    image: string = "";
+    notes: any[] = [];
     createAt: string = "";
     createBy: string = "";
     updateAt: string = "";
@@ -21,8 +22,9 @@ export class Apprenant {
 export class Classe {
     idClasse: number = 0;
     nomClasse: string = "";
+    prof: string = "";
     apprenants: Apprenant[] = [];
-    effectif: string = "";
+    effectif: number = 0;
     createAt: string = "";
     createBy: string = "";
     updateAt: string = "";
@@ -35,14 +37,15 @@ export class Evaluation {
     semestre: string = "";
     date: Date = new Date();
     type: string = "";
-    anneeScolaire: Date = new Date();
+    anneeScolaire: string = "";
     etat: string ="";
-    classe: Classe  = {idClasse: 0, nomClasse: "", effectif: "", apprenants:[], createAt:"", createBy:"", updateAt:"", updateBy:""};
+    // classe: Classe  = {idClasse: 0, nomClasse: "", effectif: 0, apprenants:[], createAt:"", createBy:"", updateAt:"", updateBy:"", prof:""};
 }
 
 export class Matiere{
     idMatiere: number = 0;
     nomMatiere: string = "";
+    description: string = "";
     evaluation: Evaluation[] = [];
     createAt: string = "";
     createBy: string = "";
@@ -59,8 +62,10 @@ export class Professeur {
     password: string = "";
     telephone : string = "";
     adresse : string = "";
-    role : String= "";
+    role : string= "";
+    image: string = "";
     matieres: Matiere[]=[];
+    idClasse: number = 0;
     createAt: string = "";
     createBy: string = "";
     updateAt: string = "";
