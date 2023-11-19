@@ -31,35 +31,7 @@ export class AuthComponent implements OnInit {
       idMatiere: 1,
       nomMatiere: "SVT",
       description: "Science de la vie et de la terre",
-      evaluation: [
-        {
-          idEvaluation: 1,
-          semestre: "Semestre 1",
-          date: new Date(),
-          type: "Devoir",
-          etat: "En cours",
-          anneeScolaire: "2023/2024",
-          // classe: "1"
-        },
-        {
-          idEvaluation: 2,
-          semestre: "Semestre 1",
-          date: new Date(),
-          type: "Examen",
-          etat: "faite",
-          anneeScolaire: "2023/2024",
-          // classe: "1"
-        },
-        {
-          idEvaluation: 3,
-          semestre: "Semestre 1",
-          date: new Date(),
-          type: "Devoir",
-          etat: "reportee",
-          anneeScolaire: "2023/2024",
-          // classe: "1"
-        },
-      ],
+      evaluation: [],
       createAt: "2023-11-18T01:08:59.632Z",
       createBy: "djibyseck@gmail.com",
       updateAt: "",
@@ -219,6 +191,7 @@ export class AuthComponent implements OnInit {
   classes: Classe[] = [
     {
       idClasse: 1,
+      etatClasse: 1,
       nomClasse: "Licence 1",
       effectif: 2,
       apprenants: [],
@@ -230,6 +203,7 @@ export class AuthComponent implements OnInit {
     },
     {
       idClasse: 2,
+      etatClasse: 1,
       nomClasse: "Licence 2",
       effectif: 20,
       apprenants: [],
@@ -241,6 +215,7 @@ export class AuthComponent implements OnInit {
     },
     {
       idClasse: 3,
+      etatClasse: 1,
       nomClasse: "Licence 3",
       effectif: 30,
       apprenants: [

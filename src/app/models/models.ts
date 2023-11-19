@@ -21,6 +21,7 @@ export class Apprenant {
 // Model pour classe 
 export class Classe {
     idClasse: number = 0;
+    etatClasse: number = 0;
     nomClasse: string = "";
     prof: string = "";
     apprenants: Apprenant[] = [];
