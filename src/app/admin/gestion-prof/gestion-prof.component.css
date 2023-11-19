@@ -61,7 +61,7 @@
 }
 
 .table{
-    height: 56vh;
+    min-height: 56vh;
     overflow-y: scroll;
 }
 
@@ -76,6 +76,11 @@ thead tr th{
     width: 10vh;
     height: 10vh;
     border-radius: 100%;
+}
+
+.btn-search{
+    background-color: #BE3144;
+    color: white;
 }
 
 .btn-modifier{
@@ -109,3 +114,18 @@ thead tr th{
     background-color: #BE3144;
     color: wheat;
 }
+
+.matiere-prof, .plus-evluation{
+    border-bottom: 1px solid #F05941;
+    cursor: pointer;
+}
+
+.matiere-prof:hover, .plus-evluation:hover{
+    border-bottom: none;
+    color: #BE3144;
+}
+
+.bi-arrow-left-circle-fill, .bi-person-circle{
+    color: #BE3144;
+}
+

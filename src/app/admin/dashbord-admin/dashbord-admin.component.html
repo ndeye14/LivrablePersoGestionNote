@@ -24,14 +24,17 @@
     </div>
     <div class="grid-item">
         <div class="second-menu mb-3">
-            <div class="container mt-3">
+            <div class="container my-3">
                 <div class="row">
-                    <div class="search col-md-10">
-                        <p><i class="annee-scolaire bi bi-calendar2-event-fill me-2"></i> Anneée scolaire: 2023/2024</p>
+                    <div class="search col-md-8">
+                        <p class="fs-4"><i class="annee-scolaire bi bi-calendar2-event-fill me-2 fs-2"></i> Anneée scolaire: {{anneeScolaireActu}}</p>
                     </div>
                     
-                    <div class="profil col-md-2">
-                        <i class="bi bi-person-fill"></i>
+                    <div class="profil col-md-4">
+                        <p class="fs-4">
+                            <span class="me-2"><i class="bi bi-person-circle fs-2"></i></span>
+                            <span class="fw-bold">{{adminConnect.email}}</span>
+                        </p>
                     </div>
                 </div>
                 <hr>
@@ -47,8 +50,8 @@
                     <button class="add-app btn me-4 mb-3">Ajouter une classe</button>
                 </div>
         
-                <!-- Contenu principale section 1 -->
-                <div class="list-all-users mb-3">
+                <!-- Contenu principale section du dashbord -->
+                <div class="list-all-users mb-3" *ngIf="showStatistic">
                     <div class="row">
                         <!-- Liste des professeurs  -->
                         <div class="col-md-4 mb-3 py-4 px-4">
@@ -57,13 +60,13 @@
                                     <p class="col-md-4">Liste des professeurs</p>
                                     <div class="col-md-8">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+                                            <input type="text" name="searchProf" class="form-control" [(ngModel)]="filterValue" (input)="onSearchProf()">
                                             <button class="input-group-text btn-search"><i class="search bi bi-search"></i></button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="list-user" >
-                                    <div class="row justify-content-center align-items-center g-2 rounded-2 py-2 row-list-user" *ngFor="let prof of tabProfesseurs.reverse()">
+                                    <div class="row justify-content-center align-items-center g-2 rounded-2 py-2 row-list-user" *ngFor="let prof of tabProfsFilter.reverse()">
                                         <div class="col" *ngIf="prof.image"><img [src]="prof.image" alt="" class="imageUser"></div>
                                         <div class="col" *ngIf="!prof.image"><i class="bi bi-person-circle fs-5"></i></div>
                                         <div class="col">{{prof.nom}}</div>
@@ -83,13 +86,13 @@
                                     <p class="col-md-4">Liste des apprenants</p>
                                     <div class="col-md-8">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+                                            <input type="text" name="searchProf" class="form-control" [(ngModel)]="filterValue" (input)="onSearchApprenant()">
                                             <button class="input-group-text btn-search"><i class="search bi bi-search"></i></button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="list-user" >
-                                    <div class="row justify-content-center align-items-center g-2 rounded-2 py-2 row-list-user" *ngFor="let apprenant of tabApprenants.reverse()">
+                                    <div class="row justify-content-center align-items-center g-2 rounded-2 py-2 row-list-user" *ngFor="let apprenant of tabApprenantsFilter.reverse()">
                                         <div class="col" *ngIf="apprenant.image"><img [src]="apprenant.image" alt="" class="imageUser"></div>
                                         <div class="col" *ngIf="!apprenant.image"><i class="bi bi-person-circle fs-5"></i></div>
                                         <div class="col">{{apprenant.nom}}</div>
@@ -172,14 +175,52 @@
                                             <p class="card-text fw-bold fs-4 text-center" *ngIf="tabMatieres.length">{{tabMatieres.length}}</p>
                                             <p class="card-text fw-bold fs-4 text-center" *ngIf="!tabMatieres.length">0</p>
                                             <h5 class="card-title mb-3">Matière (s)</h5>
-                                            <a href="#" class="btn btn-matiere btn-statictic">Gérer</a>
+                                            <button class="btn btn-matiere btn-statictic" (click)="showStatisticFunction()">Gérer</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>      
+                </div>
+                
+                <!-- Gestion des matieres  -->
+                <div class="gestion-matiere mt-5" *ngIf="!showStatistic">
+                    <div class="container">
+                        <i class="bi bi-arrow-left-square-fill fs-2 mb-3" (click)="showStatisticFunction()"></i>
+                        <div class="row mb-3">
+                            <h3 class="col-md-7 fw-bold">Liste des matieres</h3>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <input type="text" name="searchProf" class="form-control" [(ngModel)]="filterValue" (input)="onSearchMatiere()">
+                                    <button class="input-group-text btn-search"><i class="search bi bi-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-responsive shadow">
+                            <thead>
+                            <tr>
+                                <th scope="col">Numero</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let matiere of tabMatieresFilter">
+                            <tr>
+                                <th>{{matiere.idMatiere}}</th>
+                                <td>{{matiere.nomMatiere}}</td>
+                                <td>{{matiere.description}}</td>
+                                <td>
+                                    <button class="btn btn-modifier me-2" data-bs-toggle="modal" data-bs-target="#modifierMatiere" (click)="chargerInfosMatiere(matiere)" >Modifier</button>
+                                    <button class="btn btn-details me-2" data-bs-toggle="modal" data-bs-target="#detailMatiere" (click)="detailMatiere(matiere)">Détails</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -228,7 +269,7 @@
                 </div>  
                 
                 <!-- La matiere  -->
-                <div class="mb-3" *ngIf="tabMatieres">
+                <div class="mb-3" *ngIf="tabMatieres.length">
                     <label for="matiere" class="form-label">Matiere: </label>
                     <select id="matiere" class="form-select" name="matiere" aria-label="matiere du prof" [(ngModel)] ="matiereProf">
                         <option *ngFor="let matiere of tabMatieres" [value]="matiere.idMatiere" >{{matiere.nomMatiere}}</option>
@@ -343,7 +384,7 @@
                     <p class="card-text"><span class="fw-bold">Téléphone:</span> {{telephone}}</p>
                     <p class="card-text"><span class="fw-bold">Adresse:</span> {{adresse}}</p>
                     <p class="card-text"><span class="fw-bold">Classe:</span> {{classe}}</p>
-                    <p class="card-text"><span class="fw-bold">Matiere(s):</span> <span *ngFor="let matiere of tabMatieresProf"> <span class="fw-bold" data-bs-toggle="modal" data-bs-target="#detailMatiere" (click)="detailsMatiere(matiere)" class="matiere-prof"> {{matiere.nomMatiere}}</span></span></p>
+                    <p class="card-text"><span class="fw-bold">Matiere(s):</span> <span *ngFor="let matiere of tabMatieresProf"> <span class="fw-bold" data-bs-toggle="modal" data-bs-target="#detailMatiereProf" (click)="detailsMatiere(matiere)" class="matiere-prof"> {{matiere.nomMatiere}}</span></span></p>
                     <p class="card-text" *ngIf="etat == 1"><span class="fw-bold">Etat:</span> Actif</p>
                     <p class="card-text" *ngIf="etat == 0"><span class="fw-bold">Etat:</span> Inactif</p>
                     <p class="card-text" *ngIf="createAt"><span class="fw-bold">Créé le </span>{{createAt | date : 'dd/MM/yyyy'}} par <span class="fw-bold">{{createBy}} </span></p>
@@ -358,7 +399,7 @@
 </div>
 
 <!-- Modal détail matiere prof  -->
-<div class="modal fade" id="detailMatiere" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="detailMatiereProf" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -380,8 +421,8 @@
                         
                         <div class="card-text" *ngIf=" nbreEvaluation > 0">
                             <p class="card-text"  *ngFor="let evaluation of tabEvaluations">
-                                <span class="fw-bold">Evaluation {{evaluation.idEvaluation}}:</span> {{evaluation.type}} 
-                                <span class="plus-evluation" data-bs-toggle="modal" data-bs-target="#detailEvaluation" (click)="detailsEvaluation(evaluation)"> Voir plus</span>
+                                <span class="fw-bold">Evaluation {{evaluation.idEvaluation}}:</span> 
+                                <span class="plus-evluation" data-bs-toggle="modal" data-bs-target="#detailEvaluation" (click)="detailsEvaluation(evaluation)"> {{evaluation.type}} ({{evaluation.etat}})</span>
                             </p>
                         </div>
         
@@ -405,7 +446,7 @@
               <div class="card mb-3" style="max-width: 540px;">
                 <div class="card-body">
                     <div class="row text-center">
-                        <span data-bs-toggle="modal" data-bs-target="#detailMatiere" class="text-start"><i class="bi bi-arrow-left-circle-fill"></i></span>
+                        <span data-bs-toggle="modal" data-bs-target="#detailMatiereProf" class="text-start"><i class="bi bi-arrow-left-circle-fill"></i></span>
                         <h5 class="card-title fw-bold">Professeur: {{prenom}} {{nom}}</h5>
                     </div>
                     <div class="row my-3">
@@ -508,6 +549,58 @@
                   </div>
                 </div>
               </div>           
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal détail matiere  -->
+<div class="modal fade" id="detailMatiere" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Détail de la matiere</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="viderChampsCompte()"></button>
+            </div>
+            <div class="modal-body">
+              <div class="card mb-3" style="max-width: 540px;">
+                <div class="card-body">
+                  <div class="row my-3">
+                    <h5 class="card-title"><span class="fw-bold">Nom matiere:</span> {{nomMatiere}}</h5>
+                    <p class="card-text"><span class="fw-bold">Description:</span> {{description}}</p>
+                    <p class="card-text" *ngIf="createAt"><span class="fw-bold">Créé le </span>{{createAt | date : 'dd/MM/yyyy'}} par <span class="fw-bold">{{createBy}} </span></p>
+                    <p class="card-text" *ngIf="updateAt"><span class="fw-bold">Dernière mis à jour: </span>{{updateAt | date : 'dd/MM/yyyy à hh:mm'}}</p>   
+                  </div>
+                </div>
+              </div>           
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal modifier matiere  -->
+<div class="modal fade" id="modifierMatiere" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="mb-3">
+</div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Mofier la matière</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Nom: {{nomMatiere}}</p>
+                <!-- <div class="mb-3">
+                    <label for="nameInput" class="form-label">Nom: </label>
+                    <input type="text" name="name" class="form-control" id="nameInput" [(ngModel)] = "nomMatiere">
+                </div> -->
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Description:</label>
+                    <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3" [(ngModel)] = "description"></textarea>
+                </div>                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-annuler" data-bs-dismiss="modal" (click)="viderChampsCompte()">Annuler</button>
+                <button type="button" class="btn btn-ajouter" data-bs-dismiss="modal" (click)="modifierMatiere()">Modifier</button>
             </div>
         </div>
     </div>

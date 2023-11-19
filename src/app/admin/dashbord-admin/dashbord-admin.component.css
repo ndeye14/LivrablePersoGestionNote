@@ -206,7 +206,34 @@ td .btn{
     color: #BE3144;
 }
 
-.bi-arrow-left-circle-fill{
+.bi-arrow-left-circle-fill, .bi-arrow-left-square-fill{
     color: #BE3144;
 }
 /* Fin dashbord */
+
+/* Début gestion des matiere  */
+.table{
+    height: 56vh;
+    overflow-y: scroll;
+}
+
+thead tr th{
+    background-color: #F05941;
+    color: white;
+    font-weight: bold;
+    font-size: 3vh;
+}
+
+.btn-modifier{
+    background-color: white!important;
+    box-shadow: 4px 4px 2px #BE3144 ;
+    color:  #BE3144;
+}
+
+.btn-details{
+    background-color: white!important;
+    box-shadow: 4px 4px 2px #F05941 ;
+    color:  #F05941;
+}
+
+/* Fin gestion des matieres  */
