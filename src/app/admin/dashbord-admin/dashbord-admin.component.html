@@ -341,7 +341,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter un Apprenant</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter une matiere</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -355,7 +355,7 @@
                 </div>                
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-annuler" data-bs-dismiss="modal" (click)="viderChampsCompte()">Annuler</button>
+                <button type="button" class="btn btn-annuler" data-bs-dismiss="modal" (click)="viderChampsMatiere()">Annuler</button>
                 <button type="button" class="btn btn-ajouter" data-bs-dismiss="modal" (click)="ajouterMatiere()">Ajouter</button>
             </div>
         </div>
@@ -560,7 +560,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Détail de la matiere</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="viderChampsCompte()"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="viderChampsMatiere()"></button>
             </div>
             <div class="modal-body">
               <div class="card mb-3" style="max-width: 540px;">
@@ -585,7 +585,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Mofier la matière</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="viderChampsMatiere()"></button>
             </div>
             <div class="modal-body">
                 <p>Nom: {{nomMatiere}}</p>
@@ -599,7 +599,7 @@
                 </div>                
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-annuler" data-bs-dismiss="modal" (click)="viderChampsCompte()">Annuler</button>
+                <button type="button" class="btn btn-annuler" data-bs-dismiss="modal" (click)="viderChampsMatiere()">Annuler</button>
                 <button type="button" class="btn btn-ajouter" data-bs-dismiss="modal" (click)="modifierMatiere()">Modifier</button>
             </div>
         </div>
