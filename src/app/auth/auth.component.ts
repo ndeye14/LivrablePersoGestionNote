@@ -10,8 +10,8 @@ import { Apprenant, Professeur, Classe, Matiere } from '../models/models';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
-  // Déclarations des variables 
-  // le tableau user qui contient la liste des utilisateurs avec leur role 
+  // Déclarations des variables
+  // le tableau user qui contient la liste des utilisateurs avec leur role
   users : User[] = [
     {
       idUser: 1,
@@ -89,13 +89,48 @@ export class AuthComponent implements OnInit {
           updateAt: "",
           updateBy: ""
         },
+            {
+          idMatiere: 2,
+          nomMatiere: "HG",
+          description: "Science de la vie et de la terre",
+          evaluation: [
+            {
+              idEvaluation: 1,
+              semestre: "Semestre 1",
+              date: new Date(),
+              type: "Devoir",
+              etat: "En cours",
+              anneeScolaire: "2023/2024",
+            },
+            {
+              idEvaluation: 2,
+              semestre: "Semestre 1",
+              date: new Date(),
+              type: "Examen",
+              etat: "faite",
+              anneeScolaire: "2023/2024",
+            },
+            {
+              idEvaluation: 3,
+              semestre: "Semestre 1",
+              date: new Date(),
+              type: "Devoir",
+              etat: "reportee",
+              anneeScolaire: "2023/2024",
+            },
+          ],
+          createAt: "2023-11-18T01:08:59.632Z",
+          createBy: "djibyseck@gmail.com",
+          updateAt: "",
+          updateBy: ""
+        },
       ],
       idClasse: 3,
       createAt: "2023-11-18T09:06:07.356Z",
       createBy: "djibyseck@gmail.com",
       updateAt: "",
       updateBy: ""
-    }, 
+    },
     {
       idProf: 2,
       etatProf: 1,
@@ -203,7 +238,7 @@ export class AuthComponent implements OnInit {
       createAt: "",
       createBy: "",
       updateAt:"",
-      updateBy: ""    
+      updateBy: ""
     },
     {
       idClasse: 2,
@@ -215,7 +250,7 @@ export class AuthComponent implements OnInit {
       createAt: "",
       createBy: "",
       updateAt:"",
-      updateBy: ""    
+      updateBy: ""
     },
     {
       idClasse: 3,
@@ -293,7 +328,7 @@ export class AuthComponent implements OnInit {
   ];
 
 
-  // Le tableau temporaire qui stocke les utilisateurs du localStorage 
+  // Le tableau temporaire qui stocke les utilisateurs du localStorage
   tabUsersTmp: any;
 
   tabProfs: any;
@@ -304,20 +339,20 @@ export class AuthComponent implements OnInit {
 
   tabMatieres: any;
 
-  // L'utilisateur admin trouvée dans le localStorage 
+  // L'utilisateur admin trouvée dans le localStorage
   userFound: any;
 
-  // L'utilisateur prof trouvée dans le localStorage 
+  // L'utilisateur prof trouvée dans le localStorage
   userProfFound: any;
 
-  // L'utilisateur apprenant trouvée dans le localStorage 
+  // L'utilisateur apprenant trouvée dans le localStorage
   userApprenantFound: any;
 
-  // Variable pour la connexion 
+  // Variable pour la connexion
   emailCon : String = "";
   passwordCon: String = "";
 
-  // Pour vérifier les champs pour la connexion 
+  // Pour vérifier les champs pour la connexion
   verifEmailCon : String = "";
   verifPasswordCon: String = "";
 
@@ -333,10 +368,10 @@ export class AuthComponent implements OnInit {
   // Le premier mois commence par 0 avec la methode getMonth()
   moisActu = this.annee.getMonth(); 
 
-  // Le constructeur 
+  // Le constructeur
   constructor(private route:Router){}
 
-  // Déclaration des méthodes 
+  // Déclaration des méthodes
   // Methode ngOnInit
   ngOnInit(): void {
     // L'annee scolaire commence en octobre (mois = 9) et se termine en juillet (Mois = 6)
@@ -354,42 +389,42 @@ export class AuthComponent implements OnInit {
     localStorage.setItem("anneeScolaireCourent", JSON.stringify(this.anneeScolaireCourent));
 
     // Pour les administrateurs
-    // Insertion du tableau d'utilisateur dans le localstorage 
+    // Insertion du tableau d'utilisateur dans le localstorage
     // console.log(this.users);
     if(!localStorage.getItem("utilisateurs")){
       localStorage.setItem("utilisateurs", JSON.stringify(this.users));
     }
-    // Renvoie un tableau de pour les administrateurs 
-    this.tabUsersTmp = JSON.parse(localStorage.getItem("utilisateurs") || "[]");  
-     
-    
-    // Pour les professeurs 
+    // Renvoie un tableau de pour les administrateurs
+    this.tabUsersTmp = JSON.parse(localStorage.getItem("utilisateurs") || "[]");
+
+
+    // Pour les professeurs
     if(!localStorage.getItem("professeurs")){
       localStorage.setItem("professeurs", JSON.stringify(this.professeurs));
     }
-    // Renvoie un tableau de professeurs 
-    this.tabProfs = JSON.parse(localStorage.getItem("professeurs") || "[]");  
-    
-    // Pour les apprenants 
+    // Renvoie un tableau de professeurs
+    this.tabProfs = JSON.parse(localStorage.getItem("professeurs") || "[]");
+
+    // Pour les apprenants
     if(!localStorage.getItem("apprenants")){
       localStorage.setItem("apprenants", JSON.stringify(this.apprenants));
     }
-    // Renvoie un tableau de apprenants 
-    this.tabApprenants = JSON.parse(localStorage.getItem("apprenants") || "[]");  
-     
+    // Renvoie un tableau de apprenants
+    this.tabApprenants = JSON.parse(localStorage.getItem("apprenants") || "[]");
+
     // On stocke le tableaux des classes dans le localStorage
     if(!localStorage.getItem("classes")){
       localStorage.setItem("classes", JSON.stringify(this.classes));
     }
-    // On récupère et stocke le tableau des classes 
+    // On récupère et stocke le tableau des classes
     this.tabClasses = JSON.parse(localStorage.getItem("classes") || "[]");
 
     // On stocke le tableaux des matieres dans le localStorage
     if(!localStorage.getItem("matieres")){
       localStorage.setItem("matieres", JSON.stringify(this.matieres))
     }
-    // On récupère et stocke le tableau des matieres 
-    this.tabMatieres = JSON.parse(localStorage.getItem("matieres") || "[]");    
+    // On récupère et stocke le tableau des matieres
+    this.tabMatieres = JSON.parse(localStorage.getItem("matieres") || "[]");
   }
 
 
@@ -397,7 +432,7 @@ export class AuthComponent implements OnInit {
   verifEmailConFonction(){
     const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}$/;
     this.exactEmailCon = false;
-    
+
     if(this.emailCon == ""){
       this.verifEmailCon = "Veuillez renseigner votre email";
     }
@@ -425,7 +460,7 @@ export class AuthComponent implements OnInit {
     }
   }
 
-  // Méthode pour afficher un sweetalert2 apres vérification 
+  // Méthode pour afficher un sweetalert2 apres vérification
   verifierChamps(title:any, text:any, icon:any) {
     Swal.fire({
       title: title,
@@ -435,7 +470,7 @@ export class AuthComponent implements OnInit {
   }
 
 
-  // Methode pour vider les champs de la connexion 
+  // Methode pour vider les champs de la connexion
   viderChampsCon(){
     this.emailCon = "";
     this.passwordCon = "";
@@ -447,7 +482,7 @@ export class AuthComponent implements OnInit {
     this.exactPasswordCon = false;
   }
 
-  // Methode pour se connecter 
+  // Methode pour se connecter
   connexion(){
     if (this.exactEmailCon && this.exactPasswordCon){
       this.userFound = this.tabUsersTmp.find((element:any) => element.email == this.emailCon && element.password == this.passwordCon);
@@ -457,35 +492,35 @@ export class AuthComponent implements OnInit {
       if(this.userFound){
         this.route.navigate(['admin']);
         localStorage.setItem("adminConnect", JSON.stringify(this.userFound));
-        this.viderChampsCon(); 
-        this.verifierChamps("Félicitation!", "Authentifié avec succes", "success"); 
-        
+        this.viderChampsCon();
+        this.verifierChamps("Félicitation!", "Authentifié avec succes", "success");
+
       }
 
       else if(this.userProfFound){
         if(this.userProfFound.etatProf == 1){
           this.route.navigate(['prof', this.userProfFound.idProf]);
-          this.viderChampsCon(); 
-          this.verifierChamps("Félicitation!", "Authentifié avec succes", "success");  
+          this.viderChampsCon();
+          this.verifierChamps("Félicitation!", "Authentifié avec succes", "success");
         }
         else{
-          this.verifierChamps("Erreur!", "Professeur innactif", "error");  
+          this.verifierChamps("Erreur!", "Professeur innactif", "error");
         }
       }
-      
+
       else if(this.userApprenantFound){
         if(this.userApprenantFound.etatApprenant == 1){
-          this.viderChampsCon(); 
+          this.viderChampsCon();
           this.verifierChamps("Félicitation!", "Authentifié avec succes", "success");
           this.route.navigate(['apprenant', this.userApprenantFound.idApprenant]);
         }
         else{
-          this.verifierChamps("Erreur!", "Apprenant innactif", "error");  
+          this.verifierChamps("Erreur!", "Apprenant innactif", "error");
         }
       }
-      
+
       else{
-        this.verifierChamps("Erreur!", "Le compte n'existe pas", "error");  
+        this.verifierChamps("Erreur!", "Le compte n'existe pas", "error");
       }
     }
   }

@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 })
 export class DashbordAdminComponent implements OnInit {
 
-  // Déclaration des variables 
+  // Déclaration des variables
   nom: string = "";
   prenom: string  = "";
   email: string = "";
@@ -41,7 +41,7 @@ export class DashbordAdminComponent implements OnInit {
   // ];
   // apprenants: Apprenant[] = [];
   matieres: Matiere[] = [];
-  
+
 
   // users: any[]= [];
 
@@ -68,11 +68,11 @@ export class DashbordAdminComponent implements OnInit {
   anneScolaire: any;
   typeEvaluation: any;
   etatEvaluation: any;
-  numEvaluation: any; 
-  classeEvalue: any; 
+  numEvaluation: any;
+  classeEvalue: any;
   listeApprenantsEvalues: any;
 
-  // Pour les classe: 
+  // Pour les classe:
   tabClasses: any;
   totalClasses: number = 0;
   tabApprenantsClasse: any;
@@ -80,19 +80,19 @@ export class DashbordAdminComponent implements OnInit {
   // L'admin connecté:
   tabUsers: any
 
-  // L'administrateur qui s'est connecté 
+  // L'administrateur qui s'est connecté
   adminConnect: any;
 
-  // Le professeur qui sélectionné 
+  // Le professeur qui sélectionné
   profFound: any;
 
   // L'apprenant sélectionné
   apprenantFound: any;
 
-  // La classe choisi lors de l'ajout 
+  // La classe choisi lors de l'ajout
   classeFound: any;
 
-  // La matière trouvée 
+  // La matière trouvée
   matiereFound: any;
 
   // L'annee scolaire courent: 
@@ -111,7 +111,7 @@ export class DashbordAdminComponent implements OnInit {
   // Matiere 
   tabMatieresFilter: any;
 
-  // Déclaration des méthodes 
+  // Déclaration des méthodes
   // Méthode d'initialisation ngOnInit()
   ngOnInit(): void {
     // Récupération de l'annescolaire courent 
@@ -125,7 +125,7 @@ export class DashbordAdminComponent implements OnInit {
     // if(!localStorage.getItem("professeurs")){
     //   localStorage.setItem("professeurs", JSON.stringify(this.professeurs))
     // }
-    // On récupère et stocke le tableau des professeurs 
+    // On récupère et stocke le tableau des professeurs
     this.tabProfesseurs = JSON.parse(localStorage.getItem("professeurs") || "[]");
     this.tabProfsFilter = this.tabProfesseurs;
     
@@ -146,9 +146,9 @@ export class DashbordAdminComponent implements OnInit {
     // if(!localStorage.getItem("classes")){
     //   localStorage.setItem("classes", JSON.stringify(this.classes));
     // }
-    // On récupère et stocke le tableau des classes 
+    // On récupère et stocke le tableau des classes
     this.tabClasses = JSON.parse(localStorage.getItem("classes") || "[]");
-    
+
     // -----------------Fin stockage et récupérations des tableaux-----------------//
 
   }
@@ -182,7 +182,7 @@ export class DashbordAdminComponent implements OnInit {
     this.showStatistic = !this.showStatistic;
   }
 
-  // Méthode pour afficher un sweetalert2 apres vérification 
+  // Méthode pour afficher un sweetalert2 apres vérification
   verifierChamps(title:any, text:any, icon:any) {
     Swal.fire({
       title: title,
@@ -207,21 +207,21 @@ export class DashbordAdminComponent implements OnInit {
     this.nomMatiere = "";
     this.description = "";
   }
-  
+
   // Ajouter un professeur
   ajouterProfesseur(){
-    // On récupère l'identifiant du dernier prof 
+    // On récupère l'identifiant du dernier prof
     if(this.tabProfesseurs.length){
       this.lastIdProf = this.tabProfesseurs[this.tabProfesseurs.length-1].idProf;
     }
 
-    // On vérifie si les champs classe et matiere sont pris 
+    // On vérifie si les champs classe et matiere sont pris
     console.log(this.matiereProf);
     console.log(this.classe);
 
     // console.log(professeur)
 
-    // Variable pour vérifier si le compte existe 
+    // Variable pour vérifier si le compte existe
     let existProf;
 
     // Variable pour récupérer la matiere dans le tableau des matières
@@ -238,11 +238,11 @@ export class DashbordAdminComponent implements OnInit {
         this.classeFound = this.tabClasses.find((classe:any) => classe.idClasse == this.classe);
         console.log(this.classeFound);
 
-        // On récupère la matiere 
+        // On récupère la matiere
         this.matiereFound = this.tabMatieres.find((matiere:any) => matiere.idMatiere == this.matiereProf);
         console.log(this.matiereFound);
 
-        // On crée l'objet professeur 
+        // On crée l'objet professeur
         let professeur =  {
           idProf: this.lastIdProf + 1,
           etatProf: 1,
@@ -259,20 +259,20 @@ export class DashbordAdminComponent implements OnInit {
           createAt: new Date(),
           createBy: this.adminConnect.email,
           updateAt: "",
-          updateBy: "", 
+          updateBy: "",
         }
 
         console.log(professeur);
 
-        // On vérifie si la classe n'a pas de professeur d'abord 
+        // On vérifie si la classe n'a pas de professeur d'abord
         if (!this.classeFound.prof){
           //Si la classe n'a pas de prof On ajoute le prof dans la classe concerné en lui passant l'email du prof
           this.classeFound.prof = professeur.idProf;
 
-          // On ajoute le prof dans le tableau des professeurs 
+          // On ajoute le prof dans le tableau des professeurs
           this.tabProfesseurs.push(professeur);
 
-          // On met à jour le localstorage pour classe et prof 
+          // On met à jour le localstorage pour classe et prof
           localStorage.setItem("professeurs", JSON.stringify(this.tabProfesseurs));
           localStorage.setItem("classes", JSON.stringify(this.tabClasses));
           this.verifierChamps("Felicitation!", "Compte créé avec succes", "success");
@@ -288,7 +288,7 @@ export class DashbordAdminComponent implements OnInit {
         // localStorage.setItem("users", JSON.stringify(this.tabUsers));
 
         // this.verifierChamps("Felicitation!", "Compte créé avec succes", "success");
-        
+
       }
     }
 
@@ -297,7 +297,7 @@ export class DashbordAdminComponent implements OnInit {
     }
   }
 
-  // Ajouter un apprenant 
+  // Ajouter un apprenant
   ajouterApprenant(){
     if(this.tabApprenants.length){
       this.idLastApprenant = this.tabApprenants[this.tabApprenants.length-1].idApprenant;
@@ -318,11 +318,11 @@ export class DashbordAdminComponent implements OnInit {
       createAt: new Date(),
       createBy: this.adminConnect.email,
       updateAt: "",
-      updateBy: "", 
+      updateBy: "",
     }
 
     let existApprenant;
-    
+
     let nbreApprenants =  0;
 
     if(this.nom  && this.prenom  && this.email  && this.password != "" && this.telephone != "" && this.adresse  && this.imageUrl  && this.niveau ){
@@ -333,7 +333,7 @@ export class DashbordAdminComponent implements OnInit {
       if(existApprenant){
         this.verifierChamps("Impossible", "Ce compte existe déjà", "error");
       }
-      
+
       else if(this.classeFound){
         console.log("Classe trouvée:");
         console.log(this.classeFound);
@@ -346,7 +346,7 @@ export class DashbordAdminComponent implements OnInit {
         }
         // On verifie si l'effectif n'est pas atteint
         if(nbreApprenants < this.classeFound.effectif){
-          // On ajoute l'apprenant dans la classe 
+          // On ajoute l'apprenant dans la classe
           this.tabApprenantsClasse.push(apprenant);
 
           // On ajoute l'apprenant dans la table des apprenants
@@ -374,7 +374,7 @@ export class DashbordAdminComponent implements OnInit {
     }
   }
 
-  // Ajouter une matiere 
+  // Ajouter une matiere
   ajouterMatiere(){
     // On récupère l'identifiant du dernier objet matiere
     if(this.tabMatieres.length){
@@ -419,7 +419,7 @@ export class DashbordAdminComponent implements OnInit {
     }
   }
 
-  // Détails professeur 
+  // Détails professeur
   detailProf(profFound:any){
     console.log(profFound.idClasse);
     // this.profFound = ;
@@ -448,7 +448,7 @@ export class DashbordAdminComponent implements OnInit {
     // console.log(nbreEvaluation);
   }
 
-  // Détails matiere du prof 
+  // Détails matiere du prof
   detailsMatiere(matiere:any){
     this.nbreEvaluation = 0;
     // this.matiereProfFound = matiere;
@@ -492,7 +492,7 @@ export class DashbordAdminComponent implements OnInit {
   showNote: boolean = true;
   noteApprenant: any;
   idAppFound: any
-  
+
   noteApprenantFound(note:any, identifiant:any){
     console.log(note);
     console.log(this.numEvaluation)

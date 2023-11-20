@@ -1,1 +1,342 @@
-<p>accueil-prof works!</p>
+<!-- <button class="btn btn-primary mb-3" routerLink="/gestionEvaluation">Programmer une evaluation</button> -->
+
+<!--  -->
+<div class="mt-3">
+  <ul class="nav nav-pills nav-fill gap-2 p-1 small bg-custom rounded-3 shadow-sm" id="pillNav2" role="tablist"
+    style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: #F05941; --bs-nav-pills-link-active-bg: var(--bs-white);">
+    <li class="nav-item shadow-md" role="presentation">
+      <button class="nav-link active rounded-5" id="home-tab2" data-bs-toggle="tab" type="button" role="tab"
+        aria-selected="true">Home</button>
+    </li>
+    <!-- <li class="nav-item" role="presentation">
+      <button class="nav-link rounded-5" id="profile-tab2" data-bs-toggle="tab" type="button" role="tab"
+        aria-selected="false"  data-bs-toggle="modal"
+        data-bs-target="#exampleModal">Programmer une evaluation</button>
+    </li> -->
+    <li class="nav-item" role="presentation">
+      <button class="nav-link rounded-5" id="contact-tab2" data-bs-toggle="tab" type="button" role="tab"
+        aria-selected="false" (click)="logout()">Deconnexion</button>
+    </li>
+  </ul>
+
+</div>
+
+<!-- profil connecte  -->
+
+<div class="container mt-3 " id="tbl">
+  <div class="row ">
+    <div class="page-content page-container " id="page-content">
+      <div class="padding">
+        <div class="row container d-flex justify-content-center">
+          <div class="col-xl-10 col-md-12">
+            <div class="card user-card-full">
+              <div class="row m-l-0 m-r-0">
+                <div class="col-sm-4 bg-c-lite-green user-profile">
+                  <div class="card-block text-center text-white">
+                    <div class="m-b-25">
+                      <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius"
+                        alt="User-Profile-Image">
+
+                      <h6 class="f-w-600">{{profConnect.prenom}} {{profConnect.nom}}</h6>
+                      <p>{{profConnect.role}} </p>
+                      <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-sm-8">
+                  <div class="card-block">
+                    <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <p class="m-b-10 f-w-600">Email</p>
+                        <h6 class="text-muted f-w-400">{{profConnect.email}}</h6>
+                      </div>
+                      <div class="col-sm-6">
+                        <p class="m-b-10 f-w-600">Phone</p>
+                        <h6 class="text-muted f-w-400">{{profConnect.telephone}}</h6>
+                      </div>
+                    </div>
+
+                    <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Matieres</h6>
+                    <div class="row">
+                      <div class="col-sm-6" *ngFor="let item of this.tabMatieresProf">
+                        <button type="button" data-bs-toggle="modal" (click)="openModal(item);changerCouleur(item)"
+                            [ngClass]="{'couleur-changee': couleurChangeeStates[item.nomMatiere]}"
+                          data-bs-target="#exampleModal">{{item.nomMatiere}}</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-offset-1 col-md-12">
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col col-sm-5 col-xs-12 ms-auto">
+              <h5 class="title">Liste des Evaluations</h5>
+            </div>
+            <div class="col-sm-7 col-xs-12 text-right ">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control border rech "
+                  aria-label="Dollar amount (with dot and two decimal places)" [(ngModel)]="filterValue"
+                  (input)="onSearch()">
+                <span class="input-group-text "><i class="bi bi-search "></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-body table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Semestre</th>
+                <th>Date</th>
+                <th>Type evaluation</th>
+                <th>Annee</th>
+                <th>Etat evaluation</th>
+                <th>Classe a evalue</th>
+                <th>Matiere a evalue</th>
+                <th>Actions</th>
+
+              </tr>
+            </thead>
+            <tbody *ngFor="let evaluation of evaFound">
+
+              <tr>
+
+                <td></td>
+                <td>{{evaluation.semestreEvaluation}}</td>
+                <td>{{evaluation.dateEvaluation| date: 'dd/MM'}}</td>
+                <td>{{evaluation.typeEvaluation}}</td>
+                <td>{{evaluation.anneeEvaluation}}</td>
+                <td>
+                  {{evaluation.etatEvaluation}}
+                </td>
+                <td>
+                  {{this.classeInput}}
+                </td>
+                <td>
+                  {{this.matiereFound.nomMatiere}}
+                </td>
+                <td>
+                  <ul class="action-list">
+                    <li><button type="button" [disabled]="evaluation.etatEvaluation === 'Fait'" data-bs-toggle="modal" data-bs-target="#modifieModal"
+                        (click)="chargerInfosEvaluation(evaluation)"><i
+                          class="bi bi-pencil-square"></i>Modifier</button></li>
+                    <li><button type="button" [disabled]="evaluation.etatEvaluation === 'Reporte'"><i
+                          class="bi bi-plus-circle"></i>Noter</button></li>
+                          <li><button><span class="plus-evluation" data-bs-toggle="modal" data-bs-target="#detailEvaluation"
+                            (click)="detailsEvaluation(evaluation)"> Details</span></button>
+                            </li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal pour ajout evaluation-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Formulaire de creation d'evaluation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form class="form-card">
+          <div class="row justify-content-between text-left">
+            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Semestre<span
+                  class="text-danger"> *</span></label>
+
+              <select class="form-select" aria-label="Default select example" id="semestre" name="semestreInput"
+                [(ngModel)]="semestreInput">
+                <option value="Semestre 1">Semestre 1</option>
+                <option value="Semestre 2">Semestre 2</option>
+                <option value="Semestre 3">Semestre 3</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Date <span
+                  class="text-danger"> *</span></label> <input type="date" id="date" name="date"
+                placeholder="Enter your date" [(ngModel)]="dateInput"> </div>
+          </div>
+          <div class="row justify-content-between text-left">
+            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Type
+                Evaluation<span class="text-danger"> *</span></label>
+              <select class="form-select" aria-label="Default select example" id="type" name="typeInput"
+                [(ngModel)]="typeInput">
+                <option value="devoir">Devoir</option>
+                <option value="examen">Examen</option>
+
+              </select>
+            </div>
+            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Annee<span
+                  class="text-danger"> *</span></label>
+                  <select [(ngModel)]="anneeInput" class="form-select" name="anneeInput">
+                    <option value="2023-2024">2023-2024</option>
+                    <option value="2024-2025">2024-2025</option>
+                    <option value="2026-2027">2026-2027</option>
+                    <option value="2027-2028">2027-2028</option>
+                    <!-- <option *ngFor="let option of tabMatieresTmp" [value]="option.nomMatiere">{{ option.nomMatiere }}
+                    </option> -->
+                  </select>
+              <!-- <input type="date" id="annee" name="annee" placeholder="annee en cours" [(ngModel)]="anneeInput"> -->
+            </div>
+          </div>
+          <div class="row justify-content-between text-left">
+            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Etat de
+                l'evaluation<span class="text-danger"> *</span></label>
+              <select class="form-select" aria-label="Default select example" id="type" name="etatInput"
+                [(ngModel)]="etatInput">
+                <option value="Encours">Encours</option>
+                <option value="Fait">Fait</option>
+                <option value="Reporte">Reporte</option>
+
+              </select>
+            </div>
+            <!-- <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Classe a evaluer<span
+                         class="text-danger"> *</span></label>
+                     <input type="text" id="etat" name="etat" placeholder=""   [(ngModel)] = "classeInput">
+            <!-- <select class="form-select" aria-label="Default select example" id="classe" name="classeInput" [(ngModel)]="classeInput">
+                       <option value="Encours">Encours</option>
+                       <option value="Fait">Fait</option>
+                       <option value="Reporte">Reporte</option>
+                     </select>
+                   </div> -->
+          </div>
+
+
+          <!-- <div class="row justify-content-between text-left">
+            <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Matiere a evaluee
+                <span class="text-danger"> *</span></label>
+                {{matiereInput}}
+              <!-- <select [(ngModel)]="matiereInput" class="form-select">
+                <option *ngFor="let option of tabMatieresTmp" [value]="option.nomMatiere">{{ option.nomMatiere }}
+                </option>
+              </select>
+
+            </div>
+          </div> -->
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+          (click)="ajouterEvaluation()">Valider</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="viderChamps()">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal pour modifier  evaluation-->
+<div class="modal fade" id="modifieModal" tabindex="-1" aria-labelledby="modifieModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Formulaire de modification d'une evaluation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form class="form-card">
+          <div class="row justify-content-between text-left">
+            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Semestre<span
+                  class="text-danger"> *</span></label>
+              <select class="form-select" aria-label="Default select example" id="semestre" name="semestreInput"
+                [(ngModel)]="semestreInput">
+                <option value="Semestre 1">Semestre 1</option>
+                <option value="Semestre 2">Semestre 2</option>
+                <option value="Semestre 3">Semestre 3</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Date <span
+                  class="text-danger"> *</span></label> <input type="date" id="date" name="date"
+                placeholder="Enter your date" [(ngModel)]="dateInput"> </div>
+          </div>
+          <div class="row justify-content-between text-left">
+            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Type
+                Evaluation<span class="text-danger"> *</span></label>
+              <select class="form-select" aria-label="Default select example" id="type" name="typeInput"
+                [(ngModel)]="typeInput">
+                <option value="devoir">Devoir</option>
+                <option value="examen">Examen</option>
+
+              </select>
+            </div>
+            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Annee<span
+                  class="text-danger"> *</span></label>
+              <input type="text" id="annee" name="annee" placeholder="annee en cours" [(ngModel)]="anneeInput">
+            </div>
+          </div>
+          <div class="row justify-content-between text-left">
+            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Etat de
+                l'evaluation<span class="text-danger"> *</span></label>
+              <select class="form-select" aria-label="Default select example" id="type" name="etatInput"
+                [(ngModel)]="etatInput">
+                <option value="Encours">Encours</option>
+                <option value="Fait">Fait</option>
+                <option value="Reporte">Reporte</option>
+              </select>
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+          (click)="modifierEvaluation()">Valider</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="viderChamps()">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal détail evaluation prof  -->
+<div class="modal fade" id="detailEvaluation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Détail d'une evaluation</h1>
+      </div>
+      <div class="modal-body">
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="card-body">
+            <div class="row text-center">
+              <span data-bs-toggle="modal" data-bs-target="#detailMatiere" class="text-start"><i
+                  class="bi bi-arrow-left-circle-fill"></i></span>
+              <h5 class="card-title fw-bold">Professeur: {{profConnect.nom}} {{profConnect.prenom}}</h5>
+            </div>
+            <div class="row my-3">
+              <p class="card-text"><span class="fw-bold">Classe:</span> {{classeInput}}</p>
+              <p class="card-text"><span class="fw-bold">Evaluation :</span>{{numEvaluation}}</p>
+              <p class="card-text"><span class="fw-bold">Date:</span> {{dateInput | date: 'dd/MM'}}</p>
+              <p class="card-text"><span class="fw-bold">Type:</span> {{typeEvaluation}} </p>
+              <p class="card-text"><span class="fw-bold">Etat de l'evaluation:</span> {{etatEvaluation}}</p>
+              <p class="card-text"><span class="fw-bold">Annee scolaire:</span> {{anneScolaire}}</p>
+              <p class="card-text"><span class="fw-bold">CreatedAt:</span> {{createAt | date: 'dd/MM/yyyy'}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
