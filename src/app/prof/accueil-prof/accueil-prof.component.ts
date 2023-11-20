@@ -171,11 +171,11 @@ export class AccueilProfComponent implements OnInit {
       // creation de l'object evaluation
       let evaluation = {
         idEvaluation: this.idLastEvaluation + 1,
-        semestreEvaluation: this.semestreInput,
-        dateEvaluation: this.dateInput,
-        typeEvaluation: this.typeInput,
-        anneeEvaluation: this.anneeInput,
-        etatEvaluation: this.etatInput,
+        semestre: this.semestreInput,
+        date: this.dateInput,
+        type: this.typeInput,
+        annee: this.anneeInput,
+        etat: this.etatInput,
         // createAt:this.profConnect.emailInput,
         // createBy: new Date(),
       }

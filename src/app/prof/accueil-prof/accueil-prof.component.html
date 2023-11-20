@@ -115,12 +115,12 @@
               <tr>
 
                 <td></td>
-                <td>{{evaluation.semestreEvaluation}}</td>
-                <td>{{evaluation.dateEvaluation| date: 'dd/MM'}}</td>
-                <td>{{evaluation.typeEvaluation}}</td>
-                <td>{{evaluation.anneeEvaluation}}</td>
+                <td>{{evaluation.semestre}}</td>
+                <td>{{evaluation.date| date: 'dd/MM'}}</td>
+                <td>{{evaluation.type}}</td>
+                <td>{{evaluation.annee}}</td>
                 <td>
-                  {{evaluation.etatEvaluation}}
+                  {{evaluation.etat}}
                 </td>
                 <td>
                   {{this.classeInput}}
@@ -130,10 +130,10 @@
                 </td>
                 <td>
                   <ul class="action-list">
-                    <li><button type="button" [disabled]="evaluation.etatEvaluation === 'Fait'" data-bs-toggle="modal" data-bs-target="#modifieModal"
+                    <li><button type="button" [disabled]="evaluation.etatEvaluation === 'faite'" data-bs-toggle="modal" data-bs-target="#modifieModal"
                         (click)="chargerInfosEvaluation(evaluation)"><i
                           class="bi bi-pencil-square"></i>Modifier</button></li>
-                    <li><button type="button" [disabled]="evaluation.etatEvaluation === 'Reporte'"><i
+                    <li><button type="button" [disabled]="evaluation.etatEvaluation === 'reportee'"><i
                           class="bi bi-plus-circle"></i>Noter</button></li>
                           <li><button><span class="plus-evluation" data-bs-toggle="modal" data-bs-target="#detailEvaluation"
                             (click)="detailsEvaluation(evaluation)"> Details</span></button>
@@ -204,9 +204,9 @@
                 l'evaluation<span class="text-danger"> *</span></label>
               <select class="form-select" aria-label="Default select example" id="type" name="etatInput"
                 [(ngModel)]="etatInput">
-                <option value="Encours">Encours</option>
-                <option value="Fait">Fait</option>
-                <option value="Reporte">Reporte</option>
+                <option value="En cours">Encours</option>
+                <!-- <option value="faite">Faite</option>
+                <option value="reportee">Reporte</option> -->
 
               </select>
             </div>
@@ -215,8 +215,8 @@
                      <input type="text" id="etat" name="etat" placeholder=""   [(ngModel)] = "classeInput">
             <!-- <select class="form-select" aria-label="Default select example" id="classe" name="classeInput" [(ngModel)]="classeInput">
                        <option value="Encours">Encours</option>
-                       <option value="Fait">Fait</option>
-                       <option value="Reporte">Reporte</option>
+                       <option value="faite">faite</option>
+                       <option value="reportee">reportee</option>
                      </select>
                    </div> -->
           </div>
@@ -291,9 +291,9 @@
                 l'evaluation<span class="text-danger"> *</span></label>
               <select class="form-select" aria-label="Default select example" id="type" name="etatInput"
                 [(ngModel)]="etatInput">
-                <option value="Encours">Encours</option>
-                <option value="Fait">Fait</option>
-                <option value="Reporte">Reporte</option>
+                <option value="En cours">Encours</option>
+                <option value="faite">Fait</option>
+                <option value="reportee">Reportee</option>
               </select>
             </div>
           </div>
