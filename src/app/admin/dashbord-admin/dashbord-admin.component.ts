@@ -135,9 +135,9 @@ export class DashbordAdminComponent implements OnInit {
     this.tabApprenantsFilter = this.tabApprenants;
 
     // On stocke le tableaux des matieres dans le localStorage
-    if(!localStorage.getItem("matieres")){
-      localStorage.setItem("matieres", JSON.stringify(this.matieres))
-    }
+    // if(!localStorage.getItem("matieres")){
+    //   localStorage.setItem("matieres", JSON.stringify(this.matieres))
+    // }
     // On récupère et stocke le tableau des matieres 
     this.tabMatieres = JSON.parse(localStorage.getItem("matieres") || "[]");
     
@@ -450,6 +450,7 @@ export class DashbordAdminComponent implements OnInit {
 
   // Détails matiere du prof 
   detailsMatiere(matiere:any){
+    this.nbreEvaluation = 0;
     // this.matiereProfFound = matiere;
     this.nomMatiere = matiere.nomMatiere;
     this.description = matiere.description;

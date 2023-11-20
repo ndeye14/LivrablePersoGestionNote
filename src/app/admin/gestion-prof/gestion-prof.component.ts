@@ -254,7 +254,7 @@ export class GestionProfComponent implements OnInit {
 
   // Détails matiere du prof 
   detailsMatiere(matiere:any){
-    // this.matiereProfFound = matiere;
+    this.nbreEvaluation = 0;
     this.nomMatiere = matiere.nomMatiere;
     this.description = matiere.description;
 
