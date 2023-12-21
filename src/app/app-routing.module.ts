@@ -4,11 +4,12 @@ import { DashbordAdminComponent } from './admin/dashbord-admin/dashbord-admin.co
 import { AccueilProfComponent } from './prof/accueil-prof/accueil-prof.component';
 import { ListeNotesComponent } from './apprenant/liste-notes/liste-notes.component';
 import { AuthComponent } from './auth/auth.component';
+// import { GestionNotesComponent } from './prof/gestion-notes/gestion-notes.component';
 import { GestionProfComponent } from './admin/gestion-prof/gestion-prof.component';
 import { GestionApprenantComponent } from './admin/gestion-apprenant/gestion-apprenant.component';
 
 const routes: Routes = [
-  // On définit la route par défaut 
+  // On définit la route par défaut
   {path: '', redirectTo: 'auth', pathMatch: 'full'},
 
   // La page qui s'affiche par défaut
@@ -21,12 +22,15 @@ const routes: Routes = [
   {path: 'admin-gestionProf', component: GestionProfComponent},
 
   // Pour gestion des apprenants
-  {path: 'admin-gestionApprenant', component: GestionApprenantComponent},
+  { path: 'admin-gestionApprenant', component: GestionApprenantComponent },
+
+  // Pour gestion des notes
+  // {path: 'gestion-notes', component: GestionNotesComponent},
 
   // Route pour interface professeur
   {path: 'prof/:id', component:AccueilProfComponent},
 
-  // Route pour interface apprenant 
+  // Route pour interface apprenant
   {path: 'apprenant/:id', component: ListeNotesComponent}
 ];
 

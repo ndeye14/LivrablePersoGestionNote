@@ -11,6 +11,11 @@ import Swal from 'sweetalert2';
 export class AccueilProfComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute) { }
 
+  isDetails: boolean = true;
+  isNote: boolean = true;
+  evaluationsFiltered: any;
+  tabApprenants:any;
+
 
   // declarations des variables
   semestreInput: string = "";
@@ -48,11 +53,14 @@ export class AccueilProfComponent implements OnInit {
   // identifiant du dernier apprenant
   idLastApprenant: number = 0;
 
+  // listeApprenantsEvalues:any;
+
   // prof trouvé
   // profFound: any;
 
   // le tableau evaluation qui contient la liste des evaluatins avec leur role
   evaluations: Evaluation[] = []
+  evaluationFound:any;
 
   // Le tableau temporaire qui stocke les evaluations du localStorage
   tabEvaTmp: any;
@@ -85,8 +93,7 @@ export class AccueilProfComponent implements OnInit {
 
 
    ngOnInit(): void {
-    //  console.log(this.matiereFound)
-    // console.log(this.evaFound)
+
     // On récupère le tableau d'objets dans le localstorage
     this.tabProfs = JSON.parse(localStorage.getItem("professeurs") || "[]");
 
@@ -114,9 +121,28 @@ export class AccueilProfComponent implements OnInit {
       this.classeFound = this.tabClasses.find((elemnt: any) => elemnt.idClasse == this.profConnect.idClasse)
        this.classeInput = this.classeFound.nomClasse
       console.log(this.classeInput);
-      console.log(this.profConnect.idClasse);
+     console.log(this.profConnect.idClasse);
+
+     //  Les étudiants de la classe du prof
+     this.tabApprenants = this.classeFound.apprenants
+    //  console.log(this.tabApprenants);
 
 
+  }
+
+  // Chosir entre détails et liste des matiere
+  showDetails(){
+    this.isNote = true;
+    this.isDetails = !this.isDetails;
+  }
+
+  // Methode pour voir les détails de la matiere
+  detailsMatiere(matiere:any){
+    this.matiereFound = matiere;
+
+    this.evaluationFound = matiere.evaluation;
+    console.log(this.evaluationFound);
+    this.evaluationsFiltered = this.matiereFound.evaluation
   }
 
 
@@ -128,11 +154,87 @@ export class AccueilProfComponent implements OnInit {
 
     this.evaFound = this.matiereFound.evaluation;
     console.log('Evaluations Found:', this.evaFound);
-    // this.filteredElement = this.evaFound;
-    //  console.log(this.filteredElement)
+
 
 }
+// Methode pour vhoir entre voir note ou pas
+  showNotes(){
+    this.isDetails = true;
+    this.isNote = !this.isNote;
+  }
 
+  // Methode pour valider une nore
+  noter(evaluation:any){
+    this.evaluationFound = evaluation;
+  }
+   // Méthode pour enregistrer les notes pour les apprenants
+  validerNote(){
+    console.log(this.evaluationFound)
+    this.tabApprenants.forEach((element:any) => {
+      if (parseInt(element.note)>20 || parseInt(element.note) <0){
+        this.verifierChamp("Impossible", "La note est comprise entre 0 et 20", "error");
+      }
+      else{
+
+        let objetNote = {
+          note: element.note,
+          idEvaluation: this.evaluationFound.idEvaluation,
+          idMatiere: this.matiereFound.idMatiere,
+          idProf: this.profConnect.idProf
+        }
+
+        console.log(objetNote);
+        element.notes.push(objetNote);
+        console.log("element"+element.note);
+      }
+      // console.log(this.tabClasses);
+      // On modifie l'attribue isNoted de l'evaluation
+      this.evaluationFound.isNoted = "oui";
+      this.evaluationFound.etat = "faite";
+
+      // On met à jour le localStorage pour classes
+      localStorage.setItem("classes", JSON.stringify(this.tabClasses));
+
+      // On met à jour le localStorage pour professeurs
+      localStorage.setItem("professeurs", JSON.stringify(this.tabProfs));
+      // console.log(this.tabProfs.matieres);
+
+
+      this.verifierChamp("Felicitation!", "Notes attribué avec success", "success");
+    });
+  }
+
+  showNote: boolean = true;
+  noteApprenant: any;
+  idAppFound: any
+
+
+  // Méthode qui permet de récuperer l'évaluation cliquée
+  showDetailsEvalution(evaluation:any){
+    this.numEvaluation = evaluation.idEvaluation;
+    // console.log(this.numEvaluation);
+  }
+
+  noteApprenantFound(apprenant:any){
+    // On récopère le tableau des notes de l'utilisateur
+    let notes = apprenant.notes
+    console.log(notes);
+
+    // On récupère l'identifiant de l'apprenant
+    this.idAppFound = apprenant.idApprenant;
+    // On récupère l'objet note de l'utilisateur
+    let noteFound = notes.find((element:any) => element.idEvaluation == this.numEvaluation);
+    console.log(noteFound);
+
+    // On récupère juste la note dans l'objet
+    this.noteApprenant = noteFound.note;
+    console.log("note "+this.noteApprenant);
+  }
+
+   // Methode pour voir ou cacher la note
+  showNoteApprenant(){
+    this.showNote = !this.showNote;
+  }
 
 
 
@@ -174,7 +276,7 @@ export class AccueilProfComponent implements OnInit {
         semestre: this.semestreInput,
         date: this.dateInput,
         type: this.typeInput,
-        annee: this.anneeInput,
+        anneeScolaire: this.anneeInput,
         etat: this.etatInput,
         // createAt:this.profConnect.emailInput,
         // createBy: new Date(),
@@ -203,44 +305,14 @@ export class AccueilProfComponent implements OnInit {
   // Methode pour charger les informations à modifier
   chargerInfosEvaluation(paramEvaluation:any){
     this.currentEvaluation = paramEvaluation;
-    this.semestreInput = paramEvaluation.semestreEvaluation;
-    this.dateInput = paramEvaluation.dateEvaluation;
-    this.typeInput = paramEvaluation.typeEvaluation;
-    this.anneeInput = paramEvaluation.anneeEvaluation;
-    this.etatInput = paramEvaluation.etatEvaluation;
+    this.semestreInput = paramEvaluation.semestre;
+    this.dateInput = paramEvaluation.date;
+    this.typeInput = paramEvaluation.type;
+    this.anneeInput = paramEvaluation.anneeScolaire;
+    this.etatInput = paramEvaluation.etat;
     console.log(paramEvaluation)
   }
-   // Modifier les informations
-  // modifierProf(){
-  //   if(this.nom!="" && this.prenom!="" && this.email!="" && this.adresse!="" && this.telephone!=""){
-  //     this.profFound.nom = this.nom;
-  //     this.profFound.prenom = this.prenom;
-  //     this.profFound.email = this.email;
-  //     this.profFound.adresse = this.adresse;
-  //     this.profFound.telephone = this.telephone;
-  //     this.profFound.image = this.imageUrl;
-  //     this.profFound.updateAt = new Date();
-  //     this.profFound.updateBy = this.adminConnect.email;
 
-
-  //     Swal.fire({
-  //       title: "Etes-vous sur???",
-  //       text: "Vous allez mofier ce contact",
-  //       icon: "warning",
-  //       showCancelButton: true,
-  //       confirmButtonColor: "#BE3144",
-  //       cancelButtonColor: "#F05941",
-  //       confirmButtonText: "Oui, je modifie!"
-  //     }).then((result) => {
-  //       if (result.isConfirmed) {
-  //         // On met à jour le tableau qui est stocké dans le localStorage
-  //         localStorage.setItem("professeurs", JSON.stringify(this.tabProfs))
-  //         this.verifierChamps("Compte modifié!", "", "success");
-  //       }
-  //     });
-
-  //   }
-  // }
 
   // Methode pour modifier l' Evaluation
   modifierEvaluation() {
@@ -249,10 +321,10 @@ export class AccueilProfComponent implements OnInit {
     // Mettez à jour les propriétés de currentEvaluation avec les valeurs des champs d'entrée
     this.currentEvaluation.semestreEvaluation = this.semestreInput;
     console.log(this.currentEvaluation.semestreEvaluation )
-    this.currentEvaluation.dateEvaluation = this.dateInput;
-    this.currentEvaluation.typeEvaluation = this.typeInput;
-    this.currentEvaluation.anneeEvaluation = this.anneeInput;
-    this.currentEvaluation.etatEvaluation = this.etatInput;
+    this.currentEvaluation.date = this.dateInput;
+    this.currentEvaluation.type = this.typeInput;
+    this.currentEvaluation.anneeScolaire = this.anneeInput;
+    this.currentEvaluation.etat = this.etatInput;
 
     // Mettez à jour la date de dernière modification
     this.currentEvaluation.updateAt = new Date();
@@ -312,24 +384,6 @@ changerCouleur(item: any) {
 }
 
 
-  // // Variable pour suivre l'élément sélectionné
-  // elementSelectionne: any | null = null;
-  // // couleurChangee = false;
-
-  // // Fonction appelée lors du clic sur le bouton
-
-  // changerCouleur(item: any) {
-  //   // Inversez la valeur de la propriété couleurChangee de l'élément
-  //   item.couleurChangee = !item.couleurChangee;
-
-  //   // Assurez-vous de désactiver la couleur changée pour l'élément précédent s'il y en a un
-  //   if (this.elementSelectionne && this.elementSelectionne !== item) {
-  //     this.elementSelectionne.couleurChangee = false;
-  //   }
-
-  //   // Mettez à jour l'élément sélectionné
-  //   this.elementSelectionne = item;
-  // }
 
   logout(){
     //supprimer le currentuser dans notre local staorage
@@ -343,22 +397,22 @@ changerCouleur(item: any) {
   nbreEvaluation: number = 0;
   tabEvaluations: any;
   semestre: any;
-  anneScolaire: any;
+  anneeScolaire: any;
   typeEvaluation: any;
   etatEvaluation: any;
   numEvaluation: any;
-  classeEvalue: any;
+  // classeEvalue: any;
 // Détails évaluation
   detailsEvaluation(evaluation: any) {
     this.numEvaluation = evaluation.idEvaluation;
-    this.semestre = evaluation.semestreEvaluation;
-    this.anneScolaire = evaluation.anneeEvaluation;
-    this.typeEvaluation = evaluation.typeEvaluation;
-    this.etatEvaluation = evaluation.etatEvaluation;
+    this.semestre = evaluation.semestre;
+    this.anneeScolaire = evaluation.anneeScolaire;
+    this.typeEvaluation = evaluation.type;
+    this.etatEvaluation = evaluation.etat;
     this.createBy = this.profConnect.email;
     this.createAt = new Date();
 
-    // console.log(evaluation);
+
 }
 
 

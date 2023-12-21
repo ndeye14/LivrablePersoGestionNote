@@ -1,1 +1,95 @@
-<p>gestion-notes works!</p>
+
+<div class="mt-3">
+  <ul class="nav nav-pills nav-fill gap-2 p-1 small bg-custom rounded-3 shadow-sm" id="pillNav2" role="tablist"
+    style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: #F05941; --bs-nav-pills-link-active-bg: var(--bs-white);">
+    <li class="nav-item shadow-md" role="presentation">
+      <button class="nav-link active rounded-5" id="home-tab2" data-bs-toggle="tab" type="button" role="tab"
+        aria-selected="true">Home</button>
+    </li>
+    <!-- <li class="nav-item" role="presentation">
+      <button class="nav-link rounded-5" id="profile-tab2" data-bs-toggle="tab" type="button" role="tab"
+        aria-selected="false"  data-bs-toggle="modal"
+        data-bs-target="#exampleModal">Programmer une evaluation</button>
+    </li> -->
+    <li class="nav-item" role="presentation">
+      <button class="nav-link rounded-5" id="contact-tab2" data-bs-toggle="tab" type="button" role="tab"
+        aria-selected="false" (click)="logout()">Deconnexion</button>
+    </li>
+  </ul>
+
+</div>
+<div class="container">
+  <!-- <h3>{{type}} de {{matiere}} du {{date}} de la {{classe}} </h3> -->
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary text-end mt-4 mb-3">
+  Enregistrer
+</button>
+<div class="row mb-3" >
+  <div class="col-md-offset-1 col-md-12">
+    <div class="panel">
+      <div class="panel-heading">
+        <div class="row">
+          <div class="col col-sm-5 col-xs-12 ms-auto">
+            <h5 class="title">Liste des notes</h5>
+          </div>
+          <div class="col-sm-7 col-xs-12 text-right ">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control border rech "
+                aria-label="Dollar amount (with dot and two decimal places)" [(ngModel)]="filterValue"
+                >
+              <span class="input-group-text "><i class="bi bi-search "></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nom</th>
+              <th>Prenom</th>
+              <th>Email</th>
+              <th>Matiere</th>
+              <th>Note</th>
+
+
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr>
+
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+
+
+
+              <!-- <td>
+                <ul class="action-list">
+                  <li><button type="button" [disabled]="evaluation.etat === 'faite'" data-bs-toggle="modal"
+                      data-bs-target="#modifieModal" (click)="chargerInfosEvaluation(evaluation)"><i
+                        class="bi bi-pencil-square"></i>Modifier</button></li>
+                  <li><button type="button" [disabled]="evaluation.etat === 'reportee'"
+                      [routerLink]="['/gestion-notes']"><i class="bi bi-plus-circle"></i>Noter</button></li>
+                  <li><button><span class="plus-evluation" data-bs-toggle="modal" data-bs-target="#detailEvaluation"
+                        > Details</span></button>
+                  </li>
+                </ul>
+              </td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+

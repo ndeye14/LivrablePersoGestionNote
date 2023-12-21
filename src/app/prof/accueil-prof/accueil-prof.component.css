@@ -20,7 +20,7 @@
 }
 
 /* barre navigation */
-.bg-custom {
+.bg-custom ,.btn-noter{
   background-color: #F05941;
 }
 
@@ -85,12 +85,12 @@ textarea:focus {
   color: #fff !important
 }
 
-button:focus {
+/* button:focus {
   -moz-box-shadow: none !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
   outline-width: 0
-}
+} */
 
 
 /*  */
@@ -121,7 +121,7 @@ button:focus {
   margin: 0;
 }
 
-.panel .panel-heading .btn {
+.panel .panel-heading  {
   color: rgba(255, 255, 255, 0.5);
   background: transparent;
   font-size: 16px;
@@ -131,10 +131,10 @@ button:focus {
   transition: all 0.3s ease 0s;
 }
 
-.panel .panel-heading .btn:hover {
+/* .panel .panel-heading .btn:hover {
   color: #000;
   text-shadow: 3px 3px rgba(255, 255, 255, 0.2);
-}
+} */
 
 .panel .panel-heading .form-control {
   color: #000;

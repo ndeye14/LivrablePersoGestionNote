@@ -1,1 +1,103 @@
-<p>liste-notes works!</p>
+
+<div class="mt-3">
+  <ul class="nav nav-pills nav-fill gap-2 p-1 small bg-custom rounded-3 shadow-sm" id="pillNav2" role="tablist"
+    style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: #F05941; --bs-nav-pills-link-active-bg: var(--bs-white);">
+    <li class="nav-item shadow-md" role="presentation">
+      <button class="nav-link active rounded-5" id="home-tab2" data-bs-toggle="tab" type="button" role="tab"
+        aria-selected="true">Home</button>
+    </li>
+    <!-- <li class="nav-item" role="presentation">
+      <button class="nav-link rounded-5" id="profile-tab2" data-bs-toggle="tab" type="button" role="tab"
+        aria-selected="false"  data-bs-toggle="modal"
+        data-bs-target="#exampleModal">Programmer une evaluation</button>
+    </li> -->
+    <li class="nav-item" role="presentation">
+      <button class="nav-link rounded-5" id="contact-tab2" data-bs-toggle="tab" type="button" role="tab"
+        aria-selected="false" (click)="logout()">Deconnexion</button>
+    </li>
+  </ul>
+
+</div>
+<div class="row ">
+  <div class="page-content page-container " id="page-content">
+    <div class="padding">
+      <div class="row container d-flex justify-content-center">
+        <div class="col-xl-10 col-md-12">
+          <div class="card user-card-full">
+            <div class="row m-l-0 m-r-0">
+              <div class="col-sm-4 bg-c-lite-green user-profile">
+                <div class="card-block text-center text-white">
+                  <div class="m-b-25">
+                    <img [src]=userConnect.image class="rounded-circle shadow-4-strong" alt="User-Profile-Image"
+                      width="104" height="136">
+
+                    <h6 class="f-w-600">Prenom:{{userConnect.prenom}} </h6>
+                    <h6 class="f-w-600">Nom:{{userConnect.nom}}</h6>
+
+                    <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-sm-8">
+                <div class="card-block">
+                  <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Informations</h6>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <p class="m-b-10 f-w-600">Email</p>
+                      <h6 class="text-muted f-w-400">{{userConnect.email}}</h6>
+                    </div>
+                    <div class="col-sm-6">
+                      <p class="m-b-10 f-w-600">Telephone</p>
+                      <h6 class="text-muted f-w-400">{{userConnect.telephone}}</h6>
+                    </div>
+                    <div class="col-sm-6">
+                      <p class="m-b-10 f-w-600">Adresse</p>
+                      <h6 class="text-muted f-w-400">{{userConnect.adresse}}</h6>
+                    </div>
+                    <div class="col-sm-6">
+                      <p class="m-b-10 f-w-600">Profession</p>
+                      <h6 class="text-muted f-w-400">{{userConnect.role}}</h6>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Liste des notes  -->
+<div class="container">
+
+
+<div class="note mt-4">
+  <div class="d-flex justify-content-between mb-5">
+
+  <table class="table table-responsive shadow">
+    <thead>
+      <tr>
+        <th scope="col">Matiere</th>
+        <th scope="col">Description</th>
+        <th scope="col">Type Evaluation</th>
+        <th scope="col">Date Evaluation</th>
+        <th scope="col">Note</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let note of tabNotesFiltre">
+      <tr>
+        <td>{{note.matiere}}</td>
+        <td>{{note.desc}}</td>
+        <td>{{note.typeEvaluation}}</td>
+        <td>{{note.date | date: "dd/MM/yyyy"}}</td>
+        <td>{{note.note}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
